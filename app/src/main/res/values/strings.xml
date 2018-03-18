@@ -7,6 +7,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_maps">Map</string>
 
+    <string name="permission_rationale">Location permission is needed for core functionality</string>
+    <string name="permission_denied_explanation">Permission was denied, but is needed for core
+        functionality.</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -29,4 +33,5 @@
     <string name="distance_2">2,5 Km</string>
     <string name="distance_3">5 Km</string>
     <string name="distance_4">10 Km</string>
+    <string name="settings">settings</string>
 </resources>

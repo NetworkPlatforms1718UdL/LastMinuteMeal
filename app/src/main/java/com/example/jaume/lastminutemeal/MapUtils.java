@@ -1,6 +1,13 @@
 package com.example.jaume.lastminutemeal;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,7 +39,6 @@ public class MapUtils implements OnMapReadyCallback,
     Spinner mMeal_type_Spinner;
     Spinner mRadius_meters_Spinner;
 
-
     private GoogleMap mMap;
 
     private Context context;
@@ -40,6 +46,9 @@ public class MapUtils implements OnMapReadyCallback,
     MapUtils(Context context) {
         this.context = context;
     }
+
+    LocationManager locationManager;
+    double longitudeGPS, latitudeGPS;
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -56,9 +65,16 @@ public class MapUtils implements OnMapReadyCallback,
         mMeal_type_Spinner.setOnItemSelectedListener(this);
         mRadius_meters_Spinner.setOnItemSelectedListener(this);
 
+        locationManager =(LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+        checkLocation();
+        locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER, 0, 0, locationListenerGPS);
+
+        Toast.makeText(context, longitudeGPS + " - " + latitudeGPS, Toast.LENGTH_SHORT).show();
 
         CameraPosition LLEIDA = new CameraPosition.Builder().target(
-                new LatLng(41.613492, 0.619827))
+                //new LatLng(41.613492, 0.619827)) //UBICACIÓN ACTUAL
+                new LatLng(longitudeGPS, latitudeGPS))
                 .zoom(16.0f)
                 .bearing(0)
                 .tilt(25)
@@ -119,4 +135,32 @@ public class MapUtils implements OnMapReadyCallback,
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+    private boolean checkLocation() {
+        if (!isLocationEnabled())
+            Toast.makeText(context, "Ubicación desactivada!!!!", Toast.LENGTH_SHORT).show();
+
+        return isLocationEnabled();
+    }
+
+    private boolean isLocationEnabled() {
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+    private final LocationListener locationListenerGPS = new LocationListener() {
+        public void onLocationChanged(Location location) {
+            longitudeGPS = location.getLongitude();
+            latitudeGPS = location.getLatitude();
+        }
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+        }
+        @Override
+        public void onProviderDisabled(String s) {
+        }
+    };
 }

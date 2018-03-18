@@ -1,10 +1,12 @@
 package com.example.jaume.lastminutemeal;
 
+import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,10 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.SupportMapFragment;
 
@@ -52,10 +53,14 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         initActionBar();
         initSpinners();
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(MapUtils);
+        if(checkPermissions()){
+            Toast.makeText(this, "PERMISOS OK", Toast.LENGTH_SHORT).show();
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(MapUtils);
+        } else Toast.makeText(this, "permisions not", Toast.LENGTH_SHORT).show();
+        
 
         //Intent intent = new Intent(this, LoginActivity.class);
         //startActivity(intent);
@@ -156,6 +161,15 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /**
+     * Return the current state of the permissions needed.
+     */
+    private boolean checkPermissions() {
+        int permissionState = ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        return permissionState == PackageManager.PERMISSION_GRANTED;
     }
 
 }
