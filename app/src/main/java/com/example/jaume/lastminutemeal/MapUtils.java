@@ -1,6 +1,7 @@
 package com.example.jaume.lastminutemeal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -93,11 +94,15 @@ public class MapUtils implements OnMapReadyCallback,
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-
+        Intent intent = new Intent(context, ElectionMenuActivity.class);
+        context.startActivity(intent);
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        Log.d("Marker ID:",marker.getId());
+        //Intent intent = new Intent(context, ElectionMenuActivity.class);
+        //intent.
         return false;
     }
 
