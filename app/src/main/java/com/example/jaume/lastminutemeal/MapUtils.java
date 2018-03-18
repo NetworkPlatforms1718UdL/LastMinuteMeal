@@ -1,14 +1,11 @@
 package com.example.jaume.lastminutemeal;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,7 +18,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapUtils implements OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener,
-        GoogleMap.OnInfoWindowClickListener {
+        GoogleMap.OnInfoWindowClickListener, AdapterView.OnItemSelectedListener {
 
     private static final LatLng ROMA = new LatLng(41.614320, 0.619235);
     private static final LatLng ABAT = new LatLng(41.612101, 0.620149);
@@ -30,6 +27,11 @@ public class MapUtils implements OnMapReadyCallback,
     static Marker mROMA;
     static Marker mABAT;
     static Marker mRAUL;
+
+    Spinner mEstablish_type_Spinner;
+    Spinner mMeal_type_Spinner;
+    Spinner mRadius_meters_Spinner;
+
 
     private GoogleMap mMap;
 
@@ -49,6 +51,11 @@ public class MapUtils implements OnMapReadyCallback,
         mMap.setOnMarkerClickListener(this);
         mMap.setOnInfoWindowClickListener(this);
         mMap.setContentDescription("Map with lots of markers.");
+
+        mEstablish_type_Spinner.setOnItemSelectedListener(this);
+        mMeal_type_Spinner.setOnItemSelectedListener(this);
+        mRadius_meters_Spinner.setOnItemSelectedListener(this);
+
 
         CameraPosition LLEIDA = new CameraPosition.Builder().target(
                 new LatLng(41.613492, 0.619827))
@@ -93,75 +100,23 @@ public class MapUtils implements OnMapReadyCallback,
     public boolean onMarkerClick(Marker marker) {
         return false;
     }
-}
 
-class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
-
-    // These are both viewgroups containing an ImageView with id "badge" and two TextViews
-    // with id "title" and "snippet".
-    private final View mWindow;
-
-    private final View mContents;
-
-    @SuppressLint("InflateParams")
-    CustomInfoWindowAdapter(Context context) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(
-                Context.LAYOUT_INFLATER_SERVICE);
-        assert inflater != null;
-        mWindow = inflater.inflate(R.layout.custom_info_window, null);
-        mContents = inflater.inflate(R.layout.custom_info_contents, null);
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (parent.getId() == R.id.establish_type_Spinner) {
+            Log.d("Establecimiento","Establecimiento");
+            Toast.makeText(context, "Establecimiento Cambiado", Toast.LENGTH_SHORT).show();
+        } else if (parent.getId() == R.id.meal_type_Spinner) {
+            Log.d("Comida","Comida");
+            Toast.makeText(context, "Tipo de Comida Cambiado", Toast.LENGTH_SHORT).show();
+        } else if (parent.getId() == R.id.radius_meters_Spinner) {
+            Log.d("radios","Radios");
+            Toast.makeText(context, "Radios", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
-    public View getInfoWindow(Marker marker) {
-        render(marker, mWindow);
-        return mWindow;
-    }
+    public void onNothingSelected(AdapterView<?> parent) {
 
-    @Override
-    public View getInfoContents(Marker marker) {
-        render(marker, mContents);
-        return mContents;
-    }
-
-    private void render(Marker marker, View view) {
-        int badge;
-        // Use the equals() method on a Marker to check for equals.  Do not use ==.
-        if (marker.equals(MapUtils.mROMA)) {
-            badge = R.drawable.badge_qld;
-        } else if (marker.equals(MapUtils.mABAT)) {
-            badge = R.drawable.badge_sa;
-        } else if (marker.equals(MapUtils.mRAUL)) {
-            badge = R.drawable.badge_nsw;
-        } else {
-            // Passing 0 to setImageResource will clear the image view.
-            badge = 0;
-        }
-        ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
-
-        String title = marker.getTitle();
-        TextView titleUi = ((TextView) view.findViewById(R.id.title));
-        if (title != null) {
-            // Spannable string allows us to edit the formatting of the text.
-            SpannableString titleText = new SpannableString(title);
-            titleText.setSpan(new ForegroundColorSpan(Color.RED),
-                    0, titleText.length(), 0);
-            titleUi.setText(titleText);
-        } else {
-            titleUi.setText("");
-        }
-
-        String snippet = marker.getSnippet();
-        TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
-        if (snippet != null && snippet.length() > 12) {
-            SpannableString snippetText = new SpannableString(snippet);
-            snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA),
-                    0, 10, 0);
-            snippetText.setSpan(new ForegroundColorSpan(Color.BLUE),
-                    12, snippet.length(), 0);
-            snippetUi.setText(snippetText);
-        } else {
-            snippetUi.setText("");
-        }
     }
 }

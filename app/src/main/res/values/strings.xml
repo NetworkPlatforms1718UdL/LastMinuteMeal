@@ -1,9 +1,7 @@
 <resources>
-    <string name="app_name">Material Login Example</string>
+    <string name="app_name">LastMinute Meal</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_main2">Main2Activity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -11,4 +9,24 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Main Activity Strings -->
+    <string name="meal_type">Tipo de comida</string>
+    <string name="radius_meters">Distancia</string>
+    <string name="establishment_restaurant">Restaurante</string>
+    <string name="establishment_bar">Bar</string>
+    <string name="establishment_cafe">Cafeteria</string>
+    <string name="establishment_all">Todos</string>
+    <string name="meal_0">Todos</string>
+    <string name="meal_1">Italiana</string>
+    <string name="meal_2">Latina</string>
+    <string name="meal_3">Tapeo</string>
+    <string name="meal_4">Bocatas</string>
+    <string name="meal_5">Mexicana</string>
+    <string name="establish_type">Establecimientos</string>
+    <string name="distance_0">500 m</string>
+    <string name="distance_1">1 Km</string>
+    <string name="distance_2">2,5 Km</string>
+    <string name="distance_3">5 Km</string>
+    <string name="distance_4">10 Km</string>
 </resources>
