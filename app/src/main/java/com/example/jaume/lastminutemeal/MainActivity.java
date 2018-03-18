@@ -54,14 +54,11 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         initActionBar();
         initSpinners();
-        if(checkPermissions()){
-            Toast.makeText(this, "PERMISOS OK", Toast.LENGTH_SHORT).show();
-            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.map);
-            mapFragment.getMapAsync(MapUtils);
-        } else Toast.makeText(this, "permisions not", Toast.LENGTH_SHORT).show();
-        
+        Toast.makeText(this, "PERMISOS OK", Toast.LENGTH_SHORT).show();
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(MapUtils);
 
         //Intent intent = new Intent(this, LoginActivity.class);
         //startActivity(intent);
@@ -163,15 +160,6 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    /**
-     * Return the current state of the permissions needed.
-     */
-    private boolean checkPermissions() {
-        int permissionState = ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION);
-        return permissionState == PackageManager.PERMISSION_GRANTED;
     }
 
 }

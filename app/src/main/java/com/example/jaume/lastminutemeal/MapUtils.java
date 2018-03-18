@@ -8,8 +8,10 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -43,6 +45,7 @@ import com.google.android.gms.tasks.Task;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.Executor;
 
 import static android.content.ContentValues.TAG;
@@ -77,28 +80,35 @@ public class MapUtils implements OnMapReadyCallback,
     static Marker mROMA;
     static Marker mABAT;
     static Marker mRAUL;
+    static Marker mPosition;
 
     Spinner mEstablish_type_Spinner;
     Spinner mMeal_type_Spinner;
     Spinner mRadius_meters_Spinner;
 
-    private Boolean mRequestingLocationUpdates;
-
-    private String mLastUpdateTime;
-
     private GoogleMap mMap;
 
     private Context context;
 
-    private Activity activity = (Activity) context;
+    private Activity activity;
 
+    private boolean firstTime = true;
+
+    private boolean mRequestingLocationUpdates;
+    private String mLastUpdateTime;
 
     MapUtils(Context context) {
         this.context = context;
+        this.activity = (Activity) context;
     }
 
-    LocationManager locationManager;
-    double longitudeGPS, latitudeGPS;
+    private double longitudeGPS, latitudeGPS;
+    private CameraPosition ACTUAL = new CameraPosition.Builder().target(
+            new LatLng(longitudeGPS, latitudeGPS))
+            .zoom(16.0f)
+            .bearing(0)
+            .tilt(25)
+            .build();
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -107,42 +117,34 @@ public class MapUtils implements OnMapReadyCallback,
         addMarkersToMap();
         mapSetters();
 
-        mRequestingLocationUpdates = false;
-        mLastUpdateTime = "";
-
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
         mSettingsClient = LocationServices.getSettingsClient(context);
+
+        mRequestingLocationUpdates = false;
+        mLastUpdateTime = "";
 
         createLocationCallback();
         createLocationRequest();
         buildLocationSettingsRequest();
         startLocationUpdates();
-
-        CameraPosition LLEIDA = new CameraPosition.Builder().target(
-                //new LatLng(41.613492, 0.619827)) //UBICACIÓN ACTUAL
-                new LatLng(longitudeGPS, latitudeGPS))
-                .zoom(16.0f)
-                .bearing(0)
-                .tilt(25)
-                .build();
-
-        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(LLEIDA));
+        updateLocationUI();
     }
 
     private void startLocationUpdates() {
         mSettingsClient.checkLocationSettings(mLocationSettingsRequest)
-                .addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>() {
+                .addOnSuccessListener(activity, new OnSuccessListener<LocationSettingsResponse>() {
                     @Override
                     public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
                         Log.i(TAG, "All location settings are satisfied.");
                         //noinspection MissingPermission
-                        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION,0,0) ==
+                        if (activity.checkPermission(Manifest.permission.ACCESS_FINE_LOCATION,0,0) ==
                                 PackageManager.PERMISSION_GRANTED)
                             mFusedLocationClient.requestLocationUpdates(mLocationRequest,
                                     mLocationCallback, Looper.myLooper());
+                        updateLocationUI();
                     }
                 })
-                .addOnFailureListener((Executor) this, new OnFailureListener() {
+                .addOnFailureListener(activity , new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         int statusCode = ((ApiException) e).getStatusCode();
@@ -168,6 +170,23 @@ public class MapUtils implements OnMapReadyCallback,
                         }
                     }
                 });
+        updateLocationUI();
+    }
+
+    private void updateLocationUI() {
+        Log.d("mCurrentLocation",String.valueOf(mCurrentLocation));
+        if (mCurrentLocation != null) {
+            Log.d("LongitudeGPS", String.valueOf(mCurrentLocation.getLongitude()));
+            longitudeGPS = mCurrentLocation.getLongitude();
+            Log.d("LongitudeGPS", String.valueOf(mCurrentLocation.getLatitude()));
+            latitudeGPS = mCurrentLocation.getLatitude();
+        }
+    }
+
+    private boolean checkPermissions() {
+        int permissionState = ActivityCompat.checkSelfPermission(activity,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        return permissionState == PackageManager.PERMISSION_GRANTED;
     }
 
     private void createLocationCallback() {
@@ -177,6 +196,7 @@ public class MapUtils implements OnMapReadyCallback,
                 super.onLocationResult(locationResult);
                 mCurrentLocation = locationResult.getLastLocation();
                 mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+                updateLocationUI();
             }
         };
     }
