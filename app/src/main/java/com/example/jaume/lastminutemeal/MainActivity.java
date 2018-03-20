@@ -46,22 +46,25 @@ public class MainActivity extends AppCompatActivity
             R.string.distance_3,
             R.string.distance_4,
     };
-    LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initActionBar();
-        initSpinners();
-        Toast.makeText(this, "PERMISOS OK", Toast.LENGTH_SHORT).show();
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(MapUtils);
 
         //Intent intent = new Intent(this, LoginActivity.class);
         //startActivity(intent);
+
+        initActionBar();
+        initSpinners();
+        //if (checkPermissions()) {
+            //Toast.makeText(this, "PERMISOS OK", Toast.LENGTH_SHORT).show();
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(MapUtils);
+        //} else {
+            //Toast.makeText(this, "NEIN", Toast.LENGTH_SHORT).show();
+        //}
     }
 
     private void initActionBar() {

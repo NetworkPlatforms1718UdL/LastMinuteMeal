@@ -7,11 +7,8 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
-import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,6 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -38,15 +36,9 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.tasks.OnCompleteListener;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.concurrent.Executor;
 
 import static android.content.ContentValues.TAG;
 
@@ -64,11 +56,6 @@ public class MapUtils implements OnMapReadyCallback,
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
             UPDATE_INTERVAL_IN_MILLISECONDS / 2;
 
-    // Keys for storing activity state in the Bundle.
-    private final static String KEY_REQUESTING_LOCATION_UPDATES = "requesting-location-updates";
-    private final static String KEY_LOCATION = "location";
-    private final static String KEY_LAST_UPDATED_TIME_STRING = "last-updated-time-string";
-
     private FusedLocationProviderClient mFusedLocationClient;
     private SettingsClient mSettingsClient;
     private LocationRequest mLocationRequest;
@@ -80,7 +67,7 @@ public class MapUtils implements OnMapReadyCallback,
     static Marker mROMA;
     static Marker mABAT;
     static Marker mRAUL;
-    static Marker mPosition;
+    private static Marker mPosition;
 
     Spinner mEstablish_type_Spinner;
     Spinner mMeal_type_Spinner;
@@ -94,34 +81,20 @@ public class MapUtils implements OnMapReadyCallback,
 
     private boolean firstTime = true;
 
-    private boolean mRequestingLocationUpdates;
-    private String mLastUpdateTime;
+    private double longitudeGPS, latitudeGPS;
 
     MapUtils(Context context) {
         this.context = context;
         this.activity = (Activity) context;
     }
 
-    private double longitudeGPS, latitudeGPS;
-    private CameraPosition ACTUAL = new CameraPosition.Builder().target(
-            new LatLng(longitudeGPS, latitudeGPS))
-            .zoom(16.0f)
-            .bearing(0)
-            .tilt(25)
-            .build();
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        addMarkersToMap();
         mapSetters();
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
         mSettingsClient = LocationServices.getSettingsClient(context);
-
-        mRequestingLocationUpdates = false;
-        mLastUpdateTime = "";
 
         createLocationCallback();
         createLocationRequest();
@@ -166,7 +139,6 @@ public class MapUtils implements OnMapReadyCallback,
                                         "fixed here. Fix in Settings.";
                                 Log.e(TAG, errorMessage);
                                 Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
-                                mRequestingLocationUpdates = false;
                         }
                     }
                 });
@@ -180,13 +152,11 @@ public class MapUtils implements OnMapReadyCallback,
             longitudeGPS = mCurrentLocation.getLongitude();
             Log.d("LongitudeGPS", String.valueOf(mCurrentLocation.getLatitude()));
             latitudeGPS = mCurrentLocation.getLatitude();
+            if (firstTime) {
+                addMarkersToMap();
+                firstTime = false;
+            } else mPosition.setPosition(new LatLng(latitudeGPS,longitudeGPS));
         }
-    }
-
-    private boolean checkPermissions() {
-        int permissionState = ActivityCompat.checkSelfPermission(activity,
-                Manifest.permission.ACCESS_FINE_LOCATION);
-        return permissionState == PackageManager.PERMISSION_GRANTED;
     }
 
     private void createLocationCallback() {
@@ -195,7 +165,6 @@ public class MapUtils implements OnMapReadyCallback,
             public void onLocationResult(LocationResult locationResult) {
                 super.onLocationResult(locationResult);
                 mCurrentLocation = locationResult.getLastLocation();
-                mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
                 updateLocationUI();
             }
         };
@@ -228,6 +197,17 @@ public class MapUtils implements OnMapReadyCallback,
 
     private void addMarkersToMap() {
         // Uses a colored icon.
+        Log.d("LatitudeActual",String.valueOf(latitudeGPS));
+        Log.d("LongitudeActual", String.valueOf(longitudeGPS));
+        CameraPosition ACTUAL = new CameraPosition.Builder().target(
+                new LatLng(latitudeGPS, longitudeGPS))
+                .zoom(16.0f)
+                .bearing(0)
+                .tilt(25)
+                .build();
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(ACTUAL));
+        mPosition = mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(latitudeGPS,longitudeGPS)));
         mROMA = mMap.addMarker(new MarkerOptions()
                 .position(ROMA)
                 .title("Bar Roma")
