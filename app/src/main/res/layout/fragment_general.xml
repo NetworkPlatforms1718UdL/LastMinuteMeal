@@ -31,4 +31,10 @@
             android:id="@+id/hora_spinner" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Accept" />
+
 </LinearLayout>

@@ -1,15 +1,24 @@
 package com.example.jaume.lastminutemeal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
 public class FragmentGeneralOptions extends Fragment {
+
+    private Button btn;
+    private String pers;
+    private String hor;
+    private FragmentListMenu flm;
 
     private static final String[] NUMBER_PERSONS = {
             "1",
@@ -45,12 +54,46 @@ public class FragmentGeneralOptions extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_general, container, false);
+        View view = inflater.inflate(R.layout.fragment_general,
+                container, false);
+        Button button = (Button) view.findViewById(R.id.button2);
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                FragmentListMenu fragmentListMenu = (FragmentListMenu) getActivity().getSupportFragmentManager().
+                        findFragmentById(R.id.FrgListado);
+                fragmentListMenu.setMenuListener((FragmentListMenu.MenuListener) getActivity());
+                pers = mNumberPersons.getSelectedItem().toString();
+                hor = mHours.getSelectedItem().toString();
+                fragmentListMenu.setClients(Integer.parseInt(pers));
+
+
+            }
+        });
+        return view;
+
+        /*mNumberPersons = (Spinner) getActivity().findViewById(R.id.personas_spinner);
+        mNumberPersons.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });*/
+
+        //return inflater.inflate(R.layout.fragment_general, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
+
+        btn = (Button) getActivity().findViewById(R.id.button2);
 
         mNumberPersons = (Spinner) getActivity().findViewById(R.id.personas_spinner);
         mNumberPersons.setAdapter(new ArrayAdapter<>(getActivity(),

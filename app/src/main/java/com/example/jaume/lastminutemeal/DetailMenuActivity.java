@@ -5,8 +5,7 @@ import android.support.v4.app.FragmentActivity;
 
 public class DetailMenuActivity extends FragmentActivity {
 
-    public static final String EXTRA_TEXT =
-            "EXTRA_TEXT";
+    public static final String EXTRA_TEXT = "EXTRA_TEXT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
