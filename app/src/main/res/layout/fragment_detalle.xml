@@ -4,9 +4,56 @@
 	android:orientation="vertical" 
 	android:layout_height="match_parent" 
 	android:layout_width="match_parent" >
-	
-  <TextView android:layout_height="wrap_content" 
-    android:layout_width="wrap_content" 
-    android:id="@+id/TxtDetalle"/>
+
+	<TextView android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:textSize="35sp"
+		android:id="@+id/TxtDetalle"/>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+		<TextView android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="Primer plato"/>
+
+		<Spinner
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/firstDish" />
+	</LinearLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+		<TextView android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="Segundo plato"/>
+
+		<Spinner
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/seconDish" />
+	</LinearLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+		<TextView android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="Postre"/>
+
+		<Spinner
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/desertt" />
+	</LinearLayout>
+
+	<Button
+		android:id="@+id/button3"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="Accept" />
 
 </LinearLayout>
