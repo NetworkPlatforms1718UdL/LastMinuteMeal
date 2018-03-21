@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 public class DetailMenuActivity extends FragmentActivity {
 
     public static final String EXTRA_TEXT = "EXTRA_TEXT";
+    public static final String MENU_ADAPTER = "MENU_ADAPTER";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,6 +14,6 @@ public class DetailMenuActivity extends FragmentActivity {
         setContentView(R.layout.activity_detalle);
         FragmentDetailMenu detalle = (FragmentDetailMenu) getSupportFragmentManager().
                 findFragmentById(R.id.FrgDetalle);
-        detalle.mostrarDetalle(getIntent().getStringExtra(EXTRA_TEXT));
+        detalle.mostrarDetalle((Menu) getIntent().getParcelableExtra(EXTRA_TEXT));
     }
 }

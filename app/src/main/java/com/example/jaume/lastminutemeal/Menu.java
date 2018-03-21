@@ -1,53 +1,102 @@
 package com.example.jaume.lastminutemeal;
 
-class Menu
-{
-    private String fistDish;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+class Menu implements Parcelable{
+    private String firstDish;
     private String secondDish;
     private String drink;
     private String desert;
-    private boolean coffe;
-    private String person;
-    private String type;
-    private String content;
+    private boolean coffee;
+    private int person;
 
-    Menu(String person, String type, String fistDish, String secondDish, String desert, String drink, Boolean coffe){
+    Menu(int person) {
         this.person = person;
-        this.type = type;
-        this.fistDish = fistDish;
-        this.secondDish = secondDish;
-        this.desert = desert;
-        this.drink = drink;
-        this.coffe = coffe;
+        firstDish = null;
+        secondDish = null;
+        drink = null;
+        desert = null;
+        coffee = false;
     }
 
-    Menu(String person) {this.person = person;}
-
-    String getPerson(){
-    return person;
-}
-
-    String getType(){ return type;}
-
-    void setType(String type){ this.type = type; }
-
-    String getContent(){
-        return content;
+    private Menu(Parcel in) {
+        firstDish = in.readString();
+        secondDish = in.readString();
+        drink = in.readString();
+        desert = in.readString();
+        coffee = in.readByte() != 0;
+        person = in.readInt();
     }
 
-    String getFistDish(){
-        return fistDish;
+    public static final Creator<Menu> CREATOR = new Creator<Menu>() {
+        @Override
+        public Menu createFromParcel(Parcel in) {
+            return new Menu(in);
+        }
+
+        @Override
+        public Menu[] newArray(int size) {
+            return new Menu[size];
+        }
+    };
+
+    int getPerson(){
+        return person;
     }
 
-    String getSecondDish(){ return secondDish; }
+    String getFirstDish(){
+        return firstDish;
+    }
 
-    String getDesert(){ return desert; }
+    String getSecondDish() {
+        return secondDish;
+    }
 
-    String getDrink(){
+    String getDesert() {
+        return desert;
+    }
+
+    String getDrink() {
         return drink;
     }
 
-    Boolean getCoffe(){
-        return coffe;
+    Boolean getCoffee() {
+        return coffee;
+    }
+
+    void setFirstDish(String firstDish) {
+        this.firstDish = firstDish;
+    }
+
+    void setSecondDish(String secondDish) {
+        this.secondDish = secondDish;
+    }
+
+    void setDrink(String drink) {
+        this.drink = drink;
+    }
+
+    void setDesert(String desert) {
+        this.desert = desert;
+    }
+
+    void setCoffee(boolean coffee) {
+        this.coffee = coffee;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(firstDish);
+        dest.writeString(secondDish);
+        dest.writeString(drink);
+        dest.writeString(desert);
+        dest.writeByte((byte) (coffee ? 1 : 0));
+        dest.writeInt(person);
     }
 }

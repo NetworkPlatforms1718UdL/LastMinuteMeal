@@ -232,8 +232,12 @@ public class MapUtils implements OnMapReadyCallback,
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Intent intent = new Intent(context, ElectionMenuActivity.class);
-        context.startActivity(intent);
+        if (!marker.equals(mPosition)) {
+            Intent intent = new Intent(context, ElectionMenuActivity.class);
+            context.startActivity(intent);
+        } else {
+
+        }
     }
 
     @Override

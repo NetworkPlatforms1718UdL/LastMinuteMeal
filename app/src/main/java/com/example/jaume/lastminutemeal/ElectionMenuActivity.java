@@ -3,15 +3,13 @@ package com.example.jaume.lastminutemeal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 public class ElectionMenuActivity extends FragmentActivity implements FragmentListMenu.MenuListener {
 
-    private static final String EXTRA = "EXTRA";
-    private static final String FD = "FD";
-    private static final String SD = "SD";
-    private static final String D = "D";
+    FragmentListMenu fragmentListMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +17,9 @@ public class ElectionMenuActivity extends FragmentActivity implements FragmentLi
         setContentView(R.layout.activity_election_menu);
         FragmentGeneralOptions fragmentGeneral = (FragmentGeneralOptions)
                 getSupportFragmentManager().findFragmentById(R.id.FrgGeneral);
-        if (getIntent().getStringExtra(EXTRA).equals("detail"));
-
-        FragmentListMenu fragmentListMenu = (FragmentListMenu) getSupportFragmentManager().
+        fragmentListMenu = (FragmentListMenu) getSupportFragmentManager().
                 findFragmentById(R.id.FrgListado);
-        fragmentListMenu.loadMenuClient(getIntent().getStringExtra(EXTRA),getIntent().getStringExtra(FD),getIntent().getStringExtra(SD),getIntent().getStringExtra(D));
+        fragmentListMenu.setMenuListener(this);
     }
 
     @Override
@@ -32,13 +28,17 @@ public class ElectionMenuActivity extends FragmentActivity implements FragmentLi
         boolean hayDetalle = (fgdet != null && fgdet.isInLayout());
 
         if (hayDetalle) {
-            fgdet.mostrarDetalle(c.getContent());
+            fgdet.mostrarDetalle(c);
         }
         else {
             Intent i = new Intent(this, DetailMenuActivity.class);
-            i.putExtra(DetailMenuActivity.EXTRA_TEXT, c.getPerson());
+            i.putExtra(DetailMenuActivity.EXTRA_TEXT, c);
             startActivity(i);
         }
 
+    }
+
+    public FragmentListMenu getFragmentListMenu() {
+        return fragmentListMenu;
     }
 }

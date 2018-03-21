@@ -21,31 +21,12 @@ public class FragmentGeneralOptions extends Fragment {
     private FragmentListMenu flm;
 
     private static final String[] NUMBER_PERSONS = {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
+            "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
     };
     Spinner mNumberPersons;
     private static final String[] HOURS = {
-            "20:00",
-            "20:15",
-            "20:30",
-            "20:45",
-            "21:00",
-            "21:15",
-            "21:30",
-            "21:45",
-            "22:00",
-            "22:15",
-            "22:30",
-            "22:45",
+            "20:00", "20:15", "20:30", "20:45", "21:00", "21:15", "21:30", "21:45", "22:00",
+            "22:15", "22:30", "22:45",
     };
     Spinner mHours;
 
@@ -57,36 +38,18 @@ public class FragmentGeneralOptions extends Fragment {
         View view = inflater.inflate(R.layout.fragment_general,
                 container, false);
         Button button = (Button) view.findViewById(R.id.button2);
-        button.setOnClickListener(new View.OnClickListener()
-        {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                FragmentListMenu fragmentListMenu = (FragmentListMenu) getActivity().getSupportFragmentManager().
-                        findFragmentById(R.id.FrgListado);
-                fragmentListMenu.setMenuListener((FragmentListMenu.MenuListener) getActivity());
+                ElectionMenuActivity activity = (ElectionMenuActivity) getActivity();
+                FragmentListMenu fragmentListMenu = activity.getFragmentListMenu();
                 pers = mNumberPersons.getSelectedItem().toString();
                 hor = mHours.getSelectedItem().toString();
                 fragmentListMenu.setClients(Integer.parseInt(pers));
-
-
             }
         });
         return view;
-
-        /*mNumberPersons = (Spinner) getActivity().findViewById(R.id.personas_spinner);
-        mNumberPersons.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });*/
-
-        //return inflater.inflate(R.layout.fragment_general, container, false);
     }
 
     @Override
