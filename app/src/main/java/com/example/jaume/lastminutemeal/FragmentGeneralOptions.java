@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 public class FragmentGeneralOptions extends Fragment {
 
-    private Button btn;
     private String pers;
     private String hor;
     private FragmentListMenu flm;
@@ -49,14 +48,24 @@ public class FragmentGeneralOptions extends Fragment {
                 fragmentListMenu.setClients(Integer.parseInt(pers));
             }
         });
+
+        Button button2 = (Button) view.findViewById(R.id.button5);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                Toast.makeText(getActivity(), "PEDIDO ENVIADO!", Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
-
-        btn = (Button) getActivity().findViewById(R.id.button2);
 
         mNumberPersons = (Spinner) getActivity().findViewById(R.id.personas_spinner);
         mNumberPersons.setAdapter(new ArrayAdapter<>(getActivity(),

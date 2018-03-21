@@ -4,22 +4,16 @@
     android:layout_width="match_parent"
     android:orientation="vertical" >
 
-    <fragment class="com.example.jaume.lastminutemeal.FragmentGeneralOptions"
-        android:layout_height="0px"
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        class="com.example.jaume.lastminutemeal.FragmentGeneralOptions"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_weight="40"
-        android:id="@+id/FrgGeneral"  />
+        android:id="@+id/FrgGeneral" />
 
-    <fragment class="com.example.jaume.lastminutemeal.FragmentListMenu"
-        android:layout_height="0px"
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        class="com.example.jaume.lastminutemeal.FragmentListMenu"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_weight="40"
-        android:id="@+id/FrgListado"  />
-
-    <fragment class="com.example.jaume.lastminutemeal.FragmentDetailMenu"
-        android:layout_height="0px"
-        android:layout_width="match_parent"
-        android:layout_weight="60"
-        android:id="@+id/FrgDetalle"   />
+        android:id="@+id/FrgListado" />
 
 </LinearLayout>

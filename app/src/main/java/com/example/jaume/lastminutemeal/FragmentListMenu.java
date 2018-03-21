@@ -22,9 +22,10 @@ import java.util.ArrayList;
 
 public class FragmentListMenu extends Fragment {
 
-    private ArrayList<Menu> data = new ArrayList<>();
-    private ListView list;
+    ArrayList<Menu> data = new ArrayList<>();
+    public ListView list;
     private MenuListener listener;
+    private FragmentListMenu fragmentListMenu;
     public MenuAdapter menuAdapter;
 
     @Override
@@ -38,54 +39,18 @@ public class FragmentListMenu extends Fragment {
     @Override
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
-        menuAdapter = new MenuAdapter(this);
+        data.add(new Menu(1));
+        menuAdapter = new MenuAdapter(this,data);
         list = (ListView)getView().findViewById(R.id.LstListado);
         list.setAdapter(menuAdapter);
         list.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> list, View view, int pos, long id) {
                 if (listener != null) {
-                    listener.onMenuSelect(
-                            (Menu) FragmentListMenu.this.list.getAdapter().getItem(pos));
+                    listener.onMenuSelect(data,pos);
                 }
             }
         });
-    }
-
-    class MenuAdapter extends ArrayAdapter<Menu> {
-
-        Activity context;
-
-        MenuAdapter(FragmentListMenu fragmentListMenu) {
-            super(fragmentListMenu.getActivity(),R.layout.listitem_menu, data);
-            this.context = fragmentListMenu.getActivity();
-        }
-
-        @NonNull
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = context.getLayoutInflater();
-            View item = inflater.inflate(R.layout.listitem_menu, null);
-
-            TextView lblPerson = (TextView)item.findViewById(R.id.LblPerson);
-            lblPerson.setText(String.format("Menu %s", String.valueOf(data.get(position).getPerson())));
-
-            TextView lblfd = (TextView)item.findViewById(R.id.Lblfd);
-            lblfd.setText(data.get(position).getFirstDish());
-
-            TextView lblsd = (TextView)item.findViewById(R.id.Lblsd);
-            lblsd.setText(data.get(position).getSecondDish());
-
-            TextView lbld = (TextView)item.findViewById(R.id.Lbld);
-            lbld.setText(data.get(position).getDesert());
-
-            TextView lbldr = (TextView)item.findViewById(R.id.Lbldr);
-            lbldr.setText(data.get(position).getDrink());
-
-            TextView lblc = (TextView)item.findViewById(R.id.Lblc);
-            lblc.setText("YES");
-
-            return(item);
-        }
     }
 
     public void setClients(int numTotal){
@@ -93,11 +58,12 @@ public class FragmentListMenu extends Fragment {
         for (int x=1; x<numTotal+1; x++){
             data.add(new Menu(x));
         }
-        list.setAdapter(new MenuAdapter(this));
+        menuAdapter = new MenuAdapter(this, data);
+        list.setAdapter(menuAdapter);
     }
 
     public interface MenuListener {
-        void onMenuSelect(Menu c);
+        void onMenuSelect(ArrayList<Menu> c, int position);
     }
 
     public void setMenuListener(MenuListener listener) {

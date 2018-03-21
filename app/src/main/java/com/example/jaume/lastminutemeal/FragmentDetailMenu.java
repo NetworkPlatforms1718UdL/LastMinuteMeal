@@ -2,6 +2,7 @@ package com.example.jaume.lastminutemeal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.support.v4.app.Fragment;
+
+import java.util.ArrayList;
 
 public class FragmentDetailMenu extends Fragment {
 
@@ -26,11 +29,9 @@ public class FragmentDetailMenu extends Fragment {
     };
     Spinner desert;
 
-    private String fd;
-    private String sd;
-    private String d;
-
     private Menu menu;
+    private ArrayList<Menu> menuArrayList;
+    private int position;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -48,18 +49,25 @@ public class FragmentDetailMenu extends Fragment {
                 menu.setFirstDish(fDish.getSelectedItem().toString());
                 menu.setSecondDish(sDish.getSelectedItem().toString());
                 menu.setDesert(desert.getSelectedItem().toString());
+                menuArrayList.set(position,menu);
+                Intent intent = new Intent(getActivity(), ElectionMenuActivity.class);
+                intent.putExtra(DetailMenuActivity.EXTRA_TEXT, menuArrayList);
+                getActivity().setResult(1234, intent);
+                getActivity().finish();
             }
         });
         return view;
     }
 
-    public void mostrarDetalle(Menu menu) {
-        this.menu = menu;
+    public void mostrarDetalle(ArrayList<Menu> menuArrayList, int position) {
+        this.position = position;
+        this.menuArrayList = menuArrayList;
+        this.menu = menuArrayList.get(position);
         TextView txtDetalle = (TextView) getView().findViewById(R.id.TxtDetalle);
         txtDetalle.setText(String.format("Menu %s", String.valueOf(menu.getPerson())));
-        if (menu.getFirstDish() != null) fDish.setSelection(obtainSpinnerPosition(fDish,menu.getFirstDish()));
-        if (menu.getSecondDish() != null) sDish.setSelection(obtainSpinnerPosition(sDish,menu.getSecondDish()));
-        if (menu.getDesert() != null) desert.setSelection(obtainSpinnerPosition(desert,menu.getDesert()));
+        //if (menu.getFirstDish() != null) fDish.setSelection(obtainSpinnerPosition(fDish,menu.getFirstDish()));
+        //if (menu.getSecondDish() != null) sDish.setSelection(obtainSpinnerPosition(sDish,menu.getSecondDish()));
+        //if (menu.getDesert() != null) desert.setSelection(obtainSpinnerPosition(desert,menu.getDesert()));
     }
 
     private int obtainSpinnerPosition(Spinner spinner, String selection) {
