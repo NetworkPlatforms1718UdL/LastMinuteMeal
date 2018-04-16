@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ public class FragmentResumen extends Fragment {
 
     private Menu menu;
     private ArrayList<Menu> menuArrayList;
+    private EditText et;
 
     public FragmentResumen() {
         // Required empty public constructor
@@ -31,6 +33,7 @@ public class FragmentResumen extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_resumen, container, false);
+        et = (EditText) view.findViewById(R.id.editText);
 
         /*Button button = (Button) view.findViewById(R.id.button3);
         button.setOnClickListener(new View.OnClickListener()
@@ -48,9 +51,9 @@ public class FragmentResumen extends Fragment {
     }
 
     public void mostrarResumen(ArrayList<Menu> menuArrayList, int hora) {
-        Toast.makeText(getActivity(), "Menu ok, hora: "+hora, Toast.LENGTH_SHORT).show();
         this.menuArrayList = menuArrayList;
         TextView txtDetalle = (TextView) getView().findViewById(R.id.TxtDetalle);
+
     }
 
 }
