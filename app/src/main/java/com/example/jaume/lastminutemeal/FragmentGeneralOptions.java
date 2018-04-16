@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class FragmentGeneralOptions extends Fragment {
         View view = inflater.inflate(R.layout.fragment_general,
                 container, false);
         Button button = (Button) view.findViewById(R.id.button2);
+        final LinearLayout Ll = (LinearLayout) view.findViewById(R.id.capa_reserva);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -45,6 +47,7 @@ public class FragmentGeneralOptions extends Fragment {
                 FragmentListMenu fragmentListMenu = activity.getFragmentListMenu();
                 pers = mNumberPersons.getSelectedItem().toString();
                 hor = mHours.getSelectedItem().toString();
+                Ll.setVisibility(View.VISIBLE);
                 fragmentListMenu.setClients(Integer.parseInt(pers));
             }
         });
