@@ -2,6 +2,7 @@ package com.example.jaume.lastminutemeal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,6 @@ public class FragmentGeneralOptions extends Fragment {
         View view = inflater.inflate(R.layout.fragment_general,
                 container, false);
         Button button = (Button) view.findViewById(R.id.button2);
-        final LinearLayout Ll = (LinearLayout) view.findViewById(R.id.capa_reserva);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -47,22 +47,10 @@ public class FragmentGeneralOptions extends Fragment {
                 FragmentListMenu fragmentListMenu = activity.getFragmentListMenu();
                 pers = mNumberPersons.getSelectedItem().toString();
                 hor = mHours.getSelectedItem().toString();
-                Ll.setVisibility(View.VISIBLE);
                 fragmentListMenu.setClients(Integer.parseInt(pers));
             }
         });
 
-        Button button2 = (Button) view.findViewById(R.id.button5);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                Toast.makeText(getActivity(), "PEDIDO ENVIADO!", Toast.LENGTH_SHORT).show();
-                startActivity(intent);
-                getActivity().finish();
-            }
-        });
         return view;
     }
 

@@ -9,5 +9,12 @@
       android:id="@+id/LstListado"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"></ListView>
+
+  <Button
+      android:id="@+id/button5"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="Reserva ahora" />
  
 </LinearLayout>

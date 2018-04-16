@@ -3,6 +3,7 @@ package com.example.jaume.lastminutemeal;
 import android.app.Activity;
 //import android.app.ListFragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +35,23 @@ public class FragmentListMenu extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_listado, container, false);
+        View view = inflater.inflate(R.layout.fragment_listado,
+                container, false);
+
+        Button button2 = (Button) view.findViewById(R.id.button5);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent i = new Intent(getActivity(), DetailResumenActivity.class);
+                i.putExtra(DetailResumenActivity.EXTRA_TEXT, data);
+                i.putExtra(DetailResumenActivity.HORA,23);
+                Toast.makeText(getActivity(), "RESUMEN DEL PEDIDO", Toast.LENGTH_SHORT).show();
+                startActivityForResult(i,1234);
+            }
+        });
+
+        return view;
     }
 
     @Override
