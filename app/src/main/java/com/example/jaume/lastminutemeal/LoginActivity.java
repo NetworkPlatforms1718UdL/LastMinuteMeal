@@ -2,6 +2,7 @@ package com.example.jaume.lastminutemeal;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -11,6 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.ButterKnife;
 import butterknife.Bind;
@@ -26,11 +33,16 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.btn_login) Button _loginButton;
     @Bind(R.id.link_signup) TextView _signupLink;
 
+    private FirebaseAuth mAuth;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
+        mAuth = FirebaseAuth.getInstance();
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -70,16 +82,29 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.show();
 
         email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
-
-        // TODO: Implement your own authentication logic here.
+        final String password = _passwordText.getText().toString();
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
+                        mAuth.signInWithEmailAndPassword(email, password)
+                                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            // Sign in success, update UI with the signed-in user's information
+                                            Log.d(TAG, "signInWithEmail:success");
+                                            FirebaseUser user = mAuth.getCurrentUser();
+                                            onLoginSuccess();
+                                        } else {
+                                            // If sign in fails, display a message to the user.
+                                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                                    Toast.LENGTH_SHORT).show();
+                                            onLoginFailed();
+                                        }
+                                    }
+                                });
                         progressDialog.dismiss();
                     }
                 }, 3000);

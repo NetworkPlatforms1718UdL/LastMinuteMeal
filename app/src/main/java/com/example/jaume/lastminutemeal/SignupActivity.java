@@ -3,6 +3,7 @@ package com.example.jaume.lastminutemeal;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import butterknife.ButterKnife;
 import butterknife.Bind;
@@ -26,11 +34,15 @@ public class SignupActivity extends AppCompatActivity {
     @Bind(R.id.btn_signup) Button _signupButton;
     @Bind(R.id.link_login) TextView _loginLink;
 
+    private FirebaseAuth mAuth;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
+
+        mAuth = FirebaseAuth.getInstance();
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,22 +79,35 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-        String name = _nameText.getText().toString();
-        String address = _addressText.getText().toString();
-        String email = _emailText.getText().toString();
-        String mobile = _mobileText.getText().toString();
-        String password = _passwordText.getText().toString();
-        String reEnterPassword = _reEnterPasswordText.getText().toString();
-
-        // TODO: Implement your own signup logic here.
+        final String name = _nameText.getText().toString();
+        final String address = _addressText.getText().toString();
+        final String email = _emailText.getText().toString();
+        final String mobile = _mobileText.getText().toString();
+        final String password = _passwordText.getText().toString();
+        final String reEnterPassword = _reEnterPasswordText.getText().toString();
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
+                        mAuth.createUserWithEmailAndPassword(email, password)
+                                .addOnCompleteListener(SignupActivity.this,
+                                        new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d(TAG, "createUserWithEmail:success");
+                                                    FirebaseUser user = mAuth.getCurrentUser();
+                                                    onSignupSuccess();
+                                                } else {
+                                                    Log.w(TAG, "createUserWithEmail:failure",
+                                                            task.getException());
+                                                    Toast.makeText(SignupActivity.this,
+                                                            "Authentication failed.",
+                                                            Toast.LENGTH_SHORT).show();
+                                                    onSignupFailed();
+                                                }
+                                            }
+                                        });
                         progressDialog.dismiss();
                     }
                 }, 3000);

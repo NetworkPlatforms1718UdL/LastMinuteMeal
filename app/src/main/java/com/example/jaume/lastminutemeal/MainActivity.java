@@ -52,19 +52,25 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Intent intent = new Intent(this, LoginActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
 
         initActionBar();
         initSpinners();
-        //if (checkPermissions()) {
-            //Toast.makeText(this, "PERMISOS OK", Toast.LENGTH_SHORT).show();
+        if (checkPermissions()) {
+            Toast.makeText(this, "PERMISOS OK", Toast.LENGTH_SHORT).show();
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(MapUtils);
-        //} else {
-            //Toast.makeText(this, "NEIN", Toast.LENGTH_SHORT).show();
-        //}
+        } else {
+            Toast.makeText(this, "NEIN", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean checkPermissions() {
+        int permissionState = ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        return permissionState == PackageManager.PERMISSION_GRANTED;
     }
 
     private void initActionBar() {
