@@ -46,7 +46,6 @@ public class FragmentListMenu extends Fragment {
                 Intent i = new Intent(getActivity(), DetailResumenActivity.class);
                 i.putExtra(DetailResumenActivity.EXTRA_TEXT, data);
                 i.putExtra(DetailResumenActivity.HORA,23);
-                Toast.makeText(getActivity(), "RESUMEN DEL PEDIDO", Toast.LENGTH_SHORT).show();
                 startActivityForResult(i,1234);
             }
         });

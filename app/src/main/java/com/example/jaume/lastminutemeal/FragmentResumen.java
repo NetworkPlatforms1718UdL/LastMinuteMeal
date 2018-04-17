@@ -52,8 +52,19 @@ public class FragmentResumen extends Fragment {
 
     public void mostrarResumen(ArrayList<Menu> menuArrayList, int hora) {
         this.menuArrayList = menuArrayList;
-        TextView txtDetalle = (TextView) getView().findViewById(R.id.TxtDetalle);
-
+        StringBuilder line = new StringBuilder();
+        for(int x=1; x<=menuArrayList.size(); x++) {
+            line.append("Menú "+x+"\n");
+            line.append("Primer plato: " + menuArrayList.get(x-1).getFirstDish() + "\n");
+            line.append("Segundo plato: " + menuArrayList.get(x-1).getSecondDish() + "\n");
+            line.append("Postre: " + menuArrayList.get(x-1).getDesert() + "\n");
+            line.append("Bebida: " + menuArrayList.get(x-1).getDrink() + "\n");
+            line.append("Café: " + menuArrayList.get(x-1).getCoffee() + "\n");
+            line.append("\n");
+            line.append("----------------------");
+            line.append("\n");
+        }
+        et.setText(line);
     }
 
 }
