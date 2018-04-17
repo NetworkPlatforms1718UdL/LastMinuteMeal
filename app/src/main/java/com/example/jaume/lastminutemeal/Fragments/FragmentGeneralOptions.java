@@ -17,7 +17,9 @@ public class FragmentGeneralOptions extends Fragment {
 
     private String pers;
     private String hor;
+    private String lugar;
     private FragmentListMenu flm;
+    private ElectionMenuActivity ema;
 
     private static final String[] NUMBER_PERSONS = {
             "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
@@ -36,6 +38,7 @@ public class FragmentGeneralOptions extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_general,
                 container, false);
+        ema = (ElectionMenuActivity) getActivity();
         Button button = (Button) view.findViewById(R.id.button2);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +48,8 @@ public class FragmentGeneralOptions extends Fragment {
                 FragmentListMenu fragmentListMenu = activity.getFragmentListMenu();
                 pers = mNumberPersons.getSelectedItem().toString();
                 hor = mHours.getSelectedItem().toString();
-                fragmentListMenu.setClients(Integer.parseInt(pers));
+                lugar = ema.LocalName;
+                fragmentListMenu.setClients(Integer.parseInt(pers),hor,lugar);
             }
         });
 

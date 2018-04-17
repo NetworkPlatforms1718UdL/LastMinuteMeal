@@ -18,6 +18,7 @@ import android.widget.ListView;
 import com.example.jaume.lastminutemeal.Utils.Menu;
 import com.example.jaume.lastminutemeal.Adapters.MenuAdapter;
 import com.example.jaume.lastminutemeal.R;
+import com.example.jaume.lastminutemeal.Utils.Reserva;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,7 @@ public class FragmentListMenu extends Fragment {
     private MenuListener listener;
     private FragmentListMenu fragmentListMenu;
     public MenuAdapter menuAdapter;
+    private String hora, lugar;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -44,7 +46,8 @@ public class FragmentListMenu extends Fragment {
             {
                 Intent i = new Intent(getActivity(), DetailResumenActivity.class);
                 i.putExtra(DetailResumenActivity.EXTRA_TEXT, data);
-                i.putExtra(DetailResumenActivity.HORA,23);
+                i.putExtra(DetailResumenActivity.HORA,hora);
+                i.putExtra(DetailResumenActivity.LUGAR,lugar);
                 startActivityForResult(i,1234);
             }
         });
@@ -69,11 +72,13 @@ public class FragmentListMenu extends Fragment {
         });
     }
 
-    public void setClients(int numTotal){
+    public void setClients(int numTotal, String hora, String lugar){
         data = new ArrayList<>();
         for (int x=1; x<numTotal+1; x++){
             data.add(new Menu(x));
         }
+        this.hora = hora;
+        this.lugar = lugar;
         menuAdapter = new MenuAdapter(this, data);
         list.setAdapter(menuAdapter);
     }

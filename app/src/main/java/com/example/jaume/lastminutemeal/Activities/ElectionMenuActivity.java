@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class ElectionMenuActivity extends FragmentActivity implements FragmentListMenu.MenuListener {
 
     FragmentListMenu fragmentListMenu;
-    String LocalName;
+    public String LocalName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
