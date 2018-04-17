@@ -26,8 +26,7 @@ public class FragmentResumen extends Fragment {
 
     private Menu menu;
     private ArrayList<Menu> menuArrayList;
-    private EditText et;
-    private TextView tv;
+    private TextView tv, tv2;
     private String hora, lugar;
     private Reserva reserva;
 
@@ -42,6 +41,7 @@ public class FragmentResumen extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_resumen, container, false);
         tv = (TextView) view.findViewById(R.id.textView3);
+        tv2 = (TextView) view.findViewById(R.id.textView4);
         Button button = (Button) view.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +64,7 @@ public class FragmentResumen extends Fragment {
         this.hora = hora;
         this.lugar = lugar;
         StringBuilder line = new StringBuilder();
+        tv2.setText("Lugar: "+lugar+"\n"+"Hora: "+hora);
         for(int x=1; x<=menuArrayList.size(); x++) {
             line.append("Menú "+x+"\n");
             line.append("Primer plato: " + menuArrayList.get(x-1).getFirstDish() + "\n");
