@@ -4,9 +4,11 @@ package com.example.jaume.lastminutemeal.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.widget.TextView;
 
 import com.example.jaume.lastminutemeal.Fragments.FragmentGeneralOptions;
 import com.example.jaume.lastminutemeal.Fragments.FragmentListMenu;
+import com.example.jaume.lastminutemeal.Utils.MapUtils;
 import com.example.jaume.lastminutemeal.Utils.Menu;
 import com.example.jaume.lastminutemeal.Adapters.MenuAdapter;
 import com.example.jaume.lastminutemeal.R;
@@ -16,11 +18,18 @@ import java.util.ArrayList;
 public class ElectionMenuActivity extends FragmentActivity implements FragmentListMenu.MenuListener {
 
     FragmentListMenu fragmentListMenu;
+    String LocalName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_election_menu);
+
+        Intent intent = getIntent();
+        LocalName = intent.getStringExtra(MapUtils.LOCAL_NAME);
+        TextView textView = (TextView) findViewById(R.id.LocalName);
+        textView.setText(LocalName);
+
         FragmentGeneralOptions fragmentGeneral = (FragmentGeneralOptions)
                 getSupportFragmentManager().findFragmentById(R.id.FrgGeneral);
         fragmentListMenu = (FragmentListMenu) getSupportFragmentManager().

@@ -62,7 +62,7 @@ public class MapUtils implements OnMapReadyCallback,
     private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
             UPDATE_INTERVAL_IN_MILLISECONDS / 2;
-    private final static String LOCAL_NAME = "LocalTitle";
+    public final static String LOCAL_NAME = "LocalTitle";
 
     private FusedLocationProviderClient mFusedLocationClient;
     private SettingsClient mSettingsClient;
