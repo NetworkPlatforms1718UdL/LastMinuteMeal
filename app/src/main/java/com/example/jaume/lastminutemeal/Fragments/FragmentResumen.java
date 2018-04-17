@@ -41,7 +41,6 @@ public class FragmentResumen extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_resumen, container, false);
-        et = (EditText) view.findViewById(R.id.editText);
         tv = (TextView) view.findViewById(R.id.textView3);
         Button button = (Button) view.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
