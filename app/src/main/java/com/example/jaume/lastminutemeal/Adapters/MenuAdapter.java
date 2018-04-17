@@ -1,4 +1,4 @@
-package com.example.jaume.lastminutemeal;
+package com.example.jaume.lastminutemeal.Adapters;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -8,15 +8,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.jaume.lastminutemeal.Fragments.FragmentListMenu;
+import com.example.jaume.lastminutemeal.Utils.Menu;
+import com.example.jaume.lastminutemeal.R;
+
 import java.util.ArrayList;
 
-class MenuAdapter extends ArrayAdapter<Menu> {
+public class MenuAdapter extends ArrayAdapter<Menu> {
 
     private Activity context;
     private ArrayList<Menu> data;
 
-    MenuAdapter(FragmentListMenu fragmentListMenu, ArrayList<Menu> data) {
-        super(fragmentListMenu.getActivity(),R.layout.listitem_menu, data);
+    public MenuAdapter(FragmentListMenu fragmentListMenu, ArrayList<Menu> data) {
+        super(fragmentListMenu.getActivity(), R.layout.listitem_menu, data);
         this.context = fragmentListMenu.getActivity();
         this.data = data;
     }

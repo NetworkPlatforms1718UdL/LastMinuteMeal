@@ -1,7 +1,11 @@
-package com.example.jaume.lastminutemeal;
+package com.example.jaume.lastminutemeal.Activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+
+import com.example.jaume.lastminutemeal.Fragments.FragmentDetailMenu;
+import com.example.jaume.lastminutemeal.Utils.Menu;
+import com.example.jaume.lastminutemeal.R;
 
 import java.util.ArrayList;
 

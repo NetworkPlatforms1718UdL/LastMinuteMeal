@@ -1,9 +1,9 @@
-package com.example.jaume.lastminutemeal;
+package com.example.jaume.lastminutemeal.Utils;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-class Menu implements Parcelable{
+public class Menu implements Parcelable{
     private String firstDish;
     private String secondDish;
     private String drink;
@@ -11,7 +11,7 @@ class Menu implements Parcelable{
     private boolean coffee;
     private int person;
 
-    Menu(int person) {
+    public Menu(int person) {
         this.person = person;
         firstDish = null;
         secondDish = null;
@@ -41,35 +41,35 @@ class Menu implements Parcelable{
         }
     };
 
-    int getPerson(){
+    public int getPerson(){
         return person;
     }
 
-    String getFirstDish(){
+    public String getFirstDish(){
         return firstDish;
     }
 
-    String getSecondDish() {
+    public String getSecondDish() {
         return secondDish;
     }
 
-    String getDesert() {
+    public String getDesert() {
         return desert;
     }
 
-    String getDrink() {
+    public String getDrink() {
         return drink;
     }
 
-    Boolean getCoffee() {
+    public Boolean getCoffee() {
         return coffee;
     }
 
-    void setFirstDish(String firstDish) {
+    public void setFirstDish(String firstDish) {
         this.firstDish = firstDish;
     }
 
-    void setSecondDish(String secondDish) {
+    public void setSecondDish(String secondDish) {
         this.secondDish = secondDish;
     }
 
@@ -77,7 +77,7 @@ class Menu implements Parcelable{
         this.drink = drink;
     }
 
-    void setDesert(String desert) {
+    public void setDesert(String desert) {
         this.desert = desert;
     }
 

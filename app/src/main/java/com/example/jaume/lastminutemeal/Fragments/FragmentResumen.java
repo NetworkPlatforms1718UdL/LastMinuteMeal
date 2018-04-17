@@ -1,16 +1,15 @@
-package com.example.jaume.lastminutemeal;
+package com.example.jaume.lastminutemeal.Fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.jaume.lastminutemeal.Utils.Menu;
+import com.example.jaume.lastminutemeal.R;
 
 import java.util.ArrayList;
 
@@ -34,19 +33,6 @@ public class FragmentResumen extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_resumen, container, false);
         et = (EditText) view.findViewById(R.id.editText);
-
-        /*Button button = (Button) view.findViewById(R.id.button3);
-        button.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(getActivity(), ElectionMenuActivity.class);
-                intent.putExtra(DetailMenuActivity.EXTRA_TEXT, menuArrayList);
-                getActivity().setResult(1234, intent);
-                getActivity().finish();
-            }
-        });*/
         return view;
     }
 

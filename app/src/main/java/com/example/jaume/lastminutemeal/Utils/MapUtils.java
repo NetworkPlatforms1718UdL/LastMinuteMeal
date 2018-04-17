@@ -1,4 +1,4 @@
-package com.example.jaume.lastminutemeal;
+package com.example.jaume.lastminutemeal.Utils;
 
 import android.Manifest;
 import android.app.Activity;
@@ -15,7 +15,9 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdate;
+import com.example.jaume.lastminutemeal.Activities.ElectionMenuActivity;
+import com.example.jaume.lastminutemeal.Adapters.CustomInfoWindowAdapter;
+import com.example.jaume.lastminutemeal.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -65,14 +67,14 @@ public class MapUtils implements OnMapReadyCallback,
     private Location mCurrentLocation;
 
 
-    static Marker mROMA;
-    static Marker mABAT;
-    static Marker mRAUL;
+    public static Marker mROMA;
+    public static Marker mABAT;
+    public static Marker mRAUL;
     private static Marker mPosition;
 
-    Spinner mEstablish_type_Spinner;
-    Spinner mMeal_type_Spinner;
-    Spinner mRadius_meters_Spinner;
+    public Spinner mEstablish_type_Spinner;
+    public Spinner mMeal_type_Spinner;
+    public Spinner mRadius_meters_Spinner;
 
     private GoogleMap mMap;
 
@@ -84,7 +86,7 @@ public class MapUtils implements OnMapReadyCallback,
 
     private double longitudeGPS, latitudeGPS;
 
-    MapUtils(Context context) {
+    public MapUtils(Context context) {
         this.context = context;
         this.activity = (Activity) context;
     }

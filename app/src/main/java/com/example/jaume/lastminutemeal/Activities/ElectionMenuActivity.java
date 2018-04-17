@@ -1,11 +1,15 @@
-package com.example.jaume.lastminutemeal;
+package com.example.jaume.lastminutemeal.Activities;
 
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
+
+import com.example.jaume.lastminutemeal.Fragments.FragmentGeneralOptions;
+import com.example.jaume.lastminutemeal.Fragments.FragmentListMenu;
+import com.example.jaume.lastminutemeal.Utils.Menu;
+import com.example.jaume.lastminutemeal.Adapters.MenuAdapter;
+import com.example.jaume.lastminutemeal.R;
 
 import java.util.ArrayList;
 
@@ -25,7 +29,7 @@ public class ElectionMenuActivity extends FragmentActivity implements FragmentLi
     }
 
     @Override
-    public void onMenuSelect(ArrayList<Menu> menu,int position) {
+    public void onMenuSelect(ArrayList<Menu> menu, int position) {
         Intent i = new Intent(this, DetailMenuActivity.class);
         i.putExtra(DetailMenuActivity.EXTRA_TEXT, menu);
         i.putExtra(DetailMenuActivity.POSITION,position);

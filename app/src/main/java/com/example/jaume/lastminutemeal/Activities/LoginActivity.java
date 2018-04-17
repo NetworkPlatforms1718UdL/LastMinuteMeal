@@ -1,4 +1,4 @@
-package com.example.jaume.lastminutemeal;
+package com.example.jaume.lastminutemeal.Activities;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jaume.lastminutemeal.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

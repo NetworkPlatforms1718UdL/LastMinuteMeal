@@ -1,10 +1,8 @@
-package com.example.jaume.lastminutemeal;
+package com.example.jaume.lastminutemeal.Activities;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -18,19 +16,21 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.jaume.lastminutemeal.BuildConfig;
+import com.example.jaume.lastminutemeal.Utils.MapUtils;
+import com.example.jaume.lastminutemeal.R;
 import com.google.android.gms.maps.SupportMapFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private MapUtils MapUtils = new MapUtils(this);
+    private com.example.jaume.lastminutemeal.Utils.MapUtils MapUtils = new MapUtils(this);
     private static final int[] TYPE_OF_ESTABLISHMENT = {
             R.string.establishment_all,
             R.string.establishment_restaurant, // Default

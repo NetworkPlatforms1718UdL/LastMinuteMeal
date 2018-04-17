@@ -1,4 +1,4 @@
-package com.example.jaume.lastminutemeal;
+package com.example.jaume.lastminutemeal.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.jaume.lastminutemeal.Utils.MapUtils;
+import com.example.jaume.lastminutemeal.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 
@@ -23,7 +25,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     private final View mContents;
 
     @SuppressLint("InflateParams")
-    CustomInfoWindowAdapter(Context context) {
+    public CustomInfoWindowAdapter(Context context) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
