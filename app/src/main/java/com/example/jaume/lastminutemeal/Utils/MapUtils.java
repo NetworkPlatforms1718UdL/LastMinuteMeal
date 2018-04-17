@@ -2,7 +2,6 @@ package com.example.jaume.lastminutemeal.Utils;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -17,7 +16,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.jaume.lastminutemeal.Activities.ElectionMenuActivity;
-import com.example.jaume.lastminutemeal.Activities.MainActivity;
 import com.example.jaume.lastminutemeal.Adapters.CustomInfoWindowAdapter;
 import com.example.jaume.lastminutemeal.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -42,10 +40,8 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 
 import static android.content.ContentValues.TAG;
 
@@ -70,7 +66,6 @@ public class MapUtils implements OnMapReadyCallback,
     private LocationSettingsRequest mLocationSettingsRequest;
     private LocationCallback mLocationCallback;
     private Location mCurrentLocation;
-    public PendingIntent callbackIntent;
 
 
     public static Marker mROMA;
@@ -113,9 +108,6 @@ public class MapUtils implements OnMapReadyCallback,
     }
 
     private void startLocationUpdates() {
-        Intent intent = new Intent("UNIQUE_BROADCAST_ACTION_STRING_HERE");
-        callbackIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-
         mSettingsClient.checkLocationSettings(mLocationSettingsRequest)
                 .addOnSuccessListener(activity, new OnSuccessListener<LocationSettingsResponse>() {
                     @Override
@@ -125,9 +117,8 @@ public class MapUtils implements OnMapReadyCallback,
                         if (activity.checkPermission(Manifest.permission.ACCESS_FINE_LOCATION,0,0) ==
                                 PackageManager.PERMISSION_GRANTED)
                             mFusedLocationClient.requestLocationUpdates(mLocationRequest,
-                                    callbackIntent);
+                                    mLocationCallback, Looper.myLooper());
                         updateLocationUI();
-
                     }
                 })
                 .addOnFailureListener(activity, new OnFailureListener() {
@@ -152,12 +143,10 @@ public class MapUtils implements OnMapReadyCallback,
                                         "fixed here. Fix in Settings.";
                                 Log.e(TAG, errorMessage);
                                 Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
-                                //mRequestingLocationUpdates = false;
                         }
-
-                        updateLocationUI();
                     }
                 });
+        updateLocationUI();
     }
 
     private void updateLocationUI() {
