@@ -12,11 +12,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jaume.lastminutemeal.Activities.MainActivity;
+import com.example.jaume.lastminutemeal.Utils.MapUtils;
 import com.example.jaume.lastminutemeal.Utils.Menu;
 import com.example.jaume.lastminutemeal.R;
 import com.example.jaume.lastminutemeal.Utils.Reserva;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,7 +33,7 @@ public class FragmentResumen extends Fragment {
     private TextView tv, tv2;
     private String hora, lugar;
     private Reserva reserva;
-    //private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase;
 
     public FragmentResumen() {
         // Required empty public constructor
@@ -49,13 +54,18 @@ public class FragmentResumen extends Fragment {
             {
                 reserva = new Reserva(lugar,hora,menuArrayList);
 
-                //String key = mDatabase
+                mDatabase = FirebaseDatabase.getInstance().getReference();
+                String key = mDatabase.child("booking").push().getKey();
+                Map<String,Object> postValues = reserva.uploadToDataBase();
+
+                Map<String,Object> childUpdates = new HashMap<>();
+                childUpdates.put("/booking/"+key, postValues);
+                mDatabase.updateChildren(childUpdates);
                 //TODO Añadir la reserva a la base de datos
 
                 Toast.makeText(getActivity(), "RESERVA REALIZADA", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(getActivity(),MainActivity.class);
-                startActivity(intent);
+                getActivity().finish();
             }
         });
         return view;
