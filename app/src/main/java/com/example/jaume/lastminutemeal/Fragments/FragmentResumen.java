@@ -4,6 +4,7 @@ package com.example.jaume.lastminutemeal.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import com.example.jaume.lastminutemeal.Utils.MapUtils;
 import com.example.jaume.lastminutemeal.Utils.Menu;
 import com.example.jaume.lastminutemeal.R;
 import com.example.jaume.lastminutemeal.Utils.Reserva;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -53,18 +56,15 @@ public class FragmentResumen extends Fragment {
             @Override
             public void onClick(View v)
             {
-                reserva = new Reserva(lugar,hora,menuArrayList);
-
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                reserva = new Reserva(lugar,hora,uid,menuArrayList);
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 String key = mDatabase.child("booking").push().getKey();
                 Map<String,Object> postValues = reserva.uploadToDataBase();
                 Map<String,Object> childUpdates = new HashMap<>();
                 childUpdates.put("/booking/"+key, postValues);
                 mDatabase.updateChildren(childUpdates);
-                //TODO Añadir la reserva a la base de datos
-
                 Toast.makeText(getActivity(), "RESERVA REALIZADA", Toast.LENGTH_SHORT).show();
-
                 getActivity().finish();
             }
         });

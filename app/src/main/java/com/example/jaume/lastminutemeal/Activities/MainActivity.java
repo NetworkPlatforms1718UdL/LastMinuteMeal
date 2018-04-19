@@ -23,10 +23,21 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.jaume.lastminutemeal.BuildConfig;
-import com.example.jaume.lastminutemeal.Fragments.FragmentReservas;
 import com.example.jaume.lastminutemeal.Utils.MapUtils;
 import com.example.jaume.lastminutemeal.R;
+import com.example.jaume.lastminutemeal.Utils.Menu;
+import com.example.jaume.lastminutemeal.Utils.Reserva;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -133,10 +144,10 @@ public class MainActivity extends AppCompatActivity
                 Log.i(TAG, "User interaction was cancelled.");
             } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission granted.
-                Toast.makeText(this,"PERMISSION GRANTED",Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "PERMISSION GRANTED", Toast.LENGTH_LONG).show();
             } else {
 
-                Toast.makeText(this,"PERMISSION NOT GRANTED",Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "PERMISSION NOT GRANTED", Toast.LENGTH_LONG).show();
                 // Permission denied.
 
                 // Notify the user via a SnackBar that they have rejected a core permission for the
@@ -167,7 +178,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
-
 
 
     private void showSnackbar(final int mainTextStringId, final int actionStringId,
@@ -236,15 +246,59 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_manage) {
-            Intent intent = new Intent(this,SettingsActivity.class);
+            Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_gallery) {
             Toast.makeText(this, "Not Implemented Yet! Keep Calm!", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_reserva) {
-            Intent intent = new Intent(this,DetailReservasActivity.class);
+            Intent intent = new Intent(this, DetailReservasActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_valoraciones) {
-            Toast.makeText(this, "Not Implemented Yet! Keep Calm!", Toast.LENGTH_SHORT).show();
+
+            Query mQuery = FirebaseDatabase.getInstance()
+                    .getReference("booking")
+                    .orderByChild("userid")
+                    .equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    HashMap<String, Object> reservas =
+                            (HashMap<String, Object>) dataSnapshot.getValue();
+                    List<Reserva> reservasList = getReservasList(reservas);
+                }
+
+                private List<Reserva> getReservasList(HashMap<String, Object> reservas) {
+                    List<Reserva> reservasList = new ArrayList<>();
+                    for (int x = 0; x < reservas.size(); x++) {
+                        //HashMap<String, Object> banana = (HashMap<String, Object>) reservas.get(x);
+                        HashMap<String, Object> temporal = (HashMap<String, Object>) reservas.get("-LAV6W3S-RK7CMWm8opN");
+                        String time = (String) temporal.get(3);
+                        int restaurant_id = (int) temporal.get("restaurant_id");
+                        String userid = (String) temporal.get("userid");
+                        HashMap<String, Object> menus = (HashMap<String, Object>) temporal.get("menus");
+                        ArrayList<Menu> menuList = new ArrayList<>();
+                        for (int y = 0; y < menus.size(); y++) {
+                            HashMap<String, Object> temporal2 = (HashMap<String, Object>) menus.get(y);
+                            String first = (String) temporal2.get("first");
+                            String second = (String) temporal2.get("second");
+                            String desert = (String) temporal2.get("desert");
+                            String drink = (String) temporal2.get("drink");
+                            boolean coffee = (boolean) temporal2.get("coffee");
+                            menuList.add(new Menu(y, first, second, desert, drink, coffee));
+                        }
+                        reservasList.add(new Reserva(String.valueOf(restaurant_id), time, userid, menuList));
+                    }
+                    return reservasList;
+                }
+
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    //Toast.makeText(this, "There are errors...", Toast.LENGTH_SHORT).show();
+                    Log.d("DatabaseErrors", databaseError.getDetails());
+                }
+            });
         } else if (id == R.id.nav_logout) {
             Toast.makeText(this, "Not Implemented Yet! Keep Calm!", Toast.LENGTH_SHORT).show();
         }

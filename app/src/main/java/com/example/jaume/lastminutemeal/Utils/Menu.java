@@ -3,6 +3,7 @@ package com.example.jaume.lastminutemeal.Utils;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +31,16 @@ public class Menu implements Parcelable{
         desert = in.readString();
         coffee = in.readByte() != 0;
         person = in.readInt();
+    }
+
+    public Menu (int person, String firstDish, String secondDish, String desert,
+                 String drink, Boolean coffee) {
+        this.person = person;
+        this.firstDish = firstDish;
+        this.secondDish = secondDish;
+        this.desert = desert;
+        this.drink = drink;
+        this.coffee = coffee;
     }
 
     public static final Creator<Menu> CREATOR = new Creator<Menu>() {
