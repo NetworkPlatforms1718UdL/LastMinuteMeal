@@ -35,6 +35,7 @@ public class Reserva {
         HashMap<String, Object> result = new HashMap<>();
         result.put("restaurant_id",1);
         result.put("time",hora);
+        result.put("persons",menu.size());
         HashMap<String, Object> menus = new HashMap<>();
         for (int x=0; x<menu.size(); x++){
             menus.put(String.valueOf(x),menu.get(x).uploadToDataBase());

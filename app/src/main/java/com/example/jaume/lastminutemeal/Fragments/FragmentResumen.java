@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jaume.lastminutemeal.Activities.LoginActivity;
 import com.example.jaume.lastminutemeal.Activities.MainActivity;
 import com.example.jaume.lastminutemeal.Utils.MapUtils;
 import com.example.jaume.lastminutemeal.Utils.Menu;
@@ -57,7 +58,6 @@ public class FragmentResumen extends Fragment {
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 String key = mDatabase.child("booking").push().getKey();
                 Map<String,Object> postValues = reserva.uploadToDataBase();
-
                 Map<String,Object> childUpdates = new HashMap<>();
                 childUpdates.put("/booking/"+key, postValues);
                 mDatabase.updateChildren(childUpdates);
