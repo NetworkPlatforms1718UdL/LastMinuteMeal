@@ -8,11 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.jaume.lastminutemeal.Activities.DetailResumenActivity;
+import com.example.jaume.lastminutemeal.Activities.MainActivity;
 import com.example.jaume.lastminutemeal.Utils.Menu;
 import com.example.jaume.lastminutemeal.R;
 import com.example.jaume.lastminutemeal.Utils.Reserva;
@@ -29,6 +28,7 @@ public class FragmentResumen extends Fragment {
     private TextView tv, tv2;
     private String hora, lugar;
     private Reserva reserva;
+    //private DatabaseReference mDatabase;
 
     public FragmentResumen() {
         // Required empty public constructor
@@ -48,12 +48,14 @@ public class FragmentResumen extends Fragment {
             public void onClick(View v)
             {
                 reserva = new Reserva(lugar,hora,menuArrayList);
+
+                //String key = mDatabase
+                //TODO Añadir la reserva a la base de datos
+
                 Toast.makeText(getActivity(), "RESERVA REALIZADA", Toast.LENGTH_SHORT).show();
-                /*Intent i = new Intent(getActivity(), DetailResumenActivity.class);
-                i.putExtra(DetailResumenActivity.EXTRA_TEXT, data);
-                i.putExtra(DetailResumenActivity.HORA,hora);
-                i.putExtra(DetailResumenActivity.LUGAR,lugar);
-                startActivityForResult(i,1234);*/
+
+                Intent intent = new Intent(getActivity(),MainActivity.class);
+                startActivity(intent);
             }
         });
         return view;

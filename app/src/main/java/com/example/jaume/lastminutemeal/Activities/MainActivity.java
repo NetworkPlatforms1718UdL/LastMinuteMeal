@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.jaume.lastminutemeal.BuildConfig;
+import com.example.jaume.lastminutemeal.Fragments.FragmentReservas;
 import com.example.jaume.lastminutemeal.Utils.MapUtils;
 import com.example.jaume.lastminutemeal.R;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -239,7 +240,15 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_gallery) {
             Toast.makeText(this, "Not Implemented Yet! Keep Calm!", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_reserva) {
+            Intent intent = new Intent(this,DetailReservasActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_valoraciones) {
+            Toast.makeText(this, "Not Implemented Yet! Keep Calm!", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_logout) {
+            Toast.makeText(this, "Not Implemented Yet! Keep Calm!", Toast.LENGTH_SHORT).show();
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

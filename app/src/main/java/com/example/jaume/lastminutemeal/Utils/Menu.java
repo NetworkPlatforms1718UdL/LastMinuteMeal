@@ -3,6 +3,9 @@ package com.example.jaume.lastminutemeal.Utils;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Menu implements Parcelable{
     private String firstDish;
     private String secondDish;
@@ -98,5 +101,15 @@ public class Menu implements Parcelable{
         dest.writeString(desert);
         dest.writeByte((byte) (coffee ? 1 : 0));
         dest.writeInt(person);
+    }
+
+    public Map<String, Object> uploadToDataBase(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("first",firstDish);
+        result.put("second",secondDish);
+        result.put("desert",desert);
+        result.put("drink",drink);
+        result.put("coffe",coffee);
+        return result;
     }
 }
