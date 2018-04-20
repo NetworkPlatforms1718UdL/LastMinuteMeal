@@ -23,7 +23,7 @@ public class ValorationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_valoration);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.app_name);
+        toolbar.setTitle(R.string.reserva);
 
         listView = (ListView) findViewById(R.id.listValoraciones);
         va = new ValoracionesAdapter(this, datos);
