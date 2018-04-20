@@ -15,7 +15,7 @@ public class DetailReservasActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_reservas);
+        setContentView(R.layout.activity_reserva);
         FragmentReservas reservas = (FragmentReservas) getSupportFragmentManager().
                 findFragmentById(R.id.FrgReservas);
     }

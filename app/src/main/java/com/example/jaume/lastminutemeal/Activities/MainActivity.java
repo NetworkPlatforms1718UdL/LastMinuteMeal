@@ -254,44 +254,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, DetailReservasActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_valoraciones) {
-            Query mQuery = FirebaseDatabase.getInstance()
-                    .getReference("booking")
-                    .orderByChild("userid")
-                    .equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    HashMap<String, Object> reservas =
-                            (HashMap<String, Object>) dataSnapshot.getValue();
-                    List<Reserva> reservasList = getReservasList(reservas);
-                }
-
-                private List<Reserva> getReservasList(HashMap<String, Object> reservas) {
-                    Object[] keys = reservas.keySet().toArray();
-                    List<Reserva> reservasList = new ArrayList<>();
-                    for (int x = 0; x < reservas.size(); x++) {
-                        HashMap<String, Object> temporal = (HashMap<String, Object>) reservas.get(keys[x]);
-                        String time = (String) temporal.get("time");
-                        String restaurant_id = (String) temporal.get("restaurant_id");
-                        String userid = (String) temporal.get("userid");
-                        ArrayList<HashMap<String,Object>> menus = (ArrayList<HashMap<String,Object>>) temporal.get("menu");
-                        ArrayList<Menu> menuArrayList = new ArrayList<>();
-                        for (int y = 0; y < menus.size(); y++) {
-                            menuArrayList.add(new Menu(menus.get(y)));
-                        }
-                        reservasList.add(new Reserva(String.valueOf(restaurant_id), time, userid, menuArrayList));
-                    }
-                    return reservasList;
-                }
-
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    //Toast.makeText(this, "There are errors...", Toast.LENGTH_SHORT).show();
-                    Log.d("DatabaseErrors", databaseError.getDetails());
-                }
-            });
+            Intent intent = new Intent(this, ValorationActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_logout) {
             Toast.makeText(this, "Not Implemented Yet! Keep Calm!", Toast.LENGTH_SHORT).show();
         }
