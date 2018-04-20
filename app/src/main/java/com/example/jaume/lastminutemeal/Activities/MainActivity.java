@@ -254,7 +254,6 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, DetailReservasActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_valoraciones) {
-
             Query mQuery = FirebaseDatabase.getInstance()
                     .getReference("booking")
                     .orderByChild("userid")
@@ -269,25 +268,19 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 private List<Reserva> getReservasList(HashMap<String, Object> reservas) {
+                    Object[] keys = reservas.keySet().toArray();
                     List<Reserva> reservasList = new ArrayList<>();
                     for (int x = 0; x < reservas.size(); x++) {
-                        //HashMap<String, Object> banana = (HashMap<String, Object>) reservas.get(x);
-                        HashMap<String, Object> temporal = (HashMap<String, Object>) reservas.get("-LAV6W3S-RK7CMWm8opN");
-                        String time = (String) temporal.get(3);
-                        int restaurant_id = (int) temporal.get("restaurant_id");
+                        HashMap<String, Object> temporal = (HashMap<String, Object>) reservas.get(keys[x]);
+                        String time = (String) temporal.get("time");
+                        String restaurant_id = (String) temporal.get("restaurant_id");
                         String userid = (String) temporal.get("userid");
-                        HashMap<String, Object> menus = (HashMap<String, Object>) temporal.get("menus");
-                        ArrayList<Menu> menuList = new ArrayList<>();
+                        ArrayList<HashMap<String,Object>> menus = (ArrayList<HashMap<String,Object>>) temporal.get("menu");
+                        ArrayList<Menu> menuArrayList = new ArrayList<>();
                         for (int y = 0; y < menus.size(); y++) {
-                            HashMap<String, Object> temporal2 = (HashMap<String, Object>) menus.get(y);
-                            String first = (String) temporal2.get("first");
-                            String second = (String) temporal2.get("second");
-                            String desert = (String) temporal2.get("desert");
-                            String drink = (String) temporal2.get("drink");
-                            boolean coffee = (boolean) temporal2.get("coffee");
-                            menuList.add(new Menu(y, first, second, desert, drink, coffee));
+                            menuArrayList.add(new Menu(menus.get(y)));
                         }
-                        reservasList.add(new Reserva(String.valueOf(restaurant_id), time, userid, menuList));
+                        reservasList.add(new Reserva(String.valueOf(restaurant_id), time, userid, menuArrayList));
                     }
                     return reservasList;
                 }

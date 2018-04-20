@@ -12,7 +12,7 @@ public class Menu implements Parcelable{
     private String secondDish;
     private String drink;
     private String desert;
-    private boolean coffee;
+    private String coffee;
     private int person;
 
     public Menu(int person) {
@@ -21,7 +21,7 @@ public class Menu implements Parcelable{
         secondDish = null;
         drink = null;
         desert = null;
-        coffee = false;
+        coffee = "false";
     }
 
     private Menu(Parcel in) {
@@ -29,18 +29,17 @@ public class Menu implements Parcelable{
         secondDish = in.readString();
         drink = in.readString();
         desert = in.readString();
-        coffee = in.readByte() != 0;
+        coffee = in.readString();
         person = in.readInt();
     }
 
-    public Menu (int person, String firstDish, String secondDish, String desert,
-                 String drink, Boolean coffee) {
-        this.person = person;
-        this.firstDish = firstDish;
-        this.secondDish = secondDish;
-        this.desert = desert;
-        this.drink = drink;
-        this.coffee = coffee;
+    public Menu (HashMap<String,Object> map) {
+        this.person = 1;
+        this.firstDish =  (String) map.get("first");
+        this.secondDish = (String) map.get("second");
+        this.desert = (String) map.get("desert");
+        this.drink = (String) map.get("drink");
+        this.coffee = (String) map.get("coffee");
     }
 
     public static final Creator<Menu> CREATOR = new Creator<Menu>() {
@@ -75,7 +74,7 @@ public class Menu implements Parcelable{
         return drink;
     }
 
-    public Boolean getCoffee() {
+    public String getCoffee() {
         return coffee;
     }
 
@@ -95,7 +94,7 @@ public class Menu implements Parcelable{
         this.desert = desert;
     }
 
-    void setCoffee(boolean coffee) {
+    void setCoffee(String coffee) {
         this.coffee = coffee;
     }
 
@@ -110,7 +109,7 @@ public class Menu implements Parcelable{
         dest.writeString(secondDish);
         dest.writeString(drink);
         dest.writeString(desert);
-        dest.writeByte((byte) (coffee ? 1 : 0));
+        dest.writeString(coffee);
         dest.writeInt(person);
     }
 
