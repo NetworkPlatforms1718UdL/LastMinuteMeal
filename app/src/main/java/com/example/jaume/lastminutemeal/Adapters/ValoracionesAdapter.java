@@ -27,7 +27,7 @@ public class ValoracionesAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return datos.length;
     }
 
     @Override
@@ -47,7 +47,6 @@ public class ValoracionesAdapter extends BaseAdapter {
         TextView coment = (TextView) vista.findViewById(R.id.textView6);
         name.setText(datos[i][0]);
         coment.setText(datos[i][1]);
-        Toast.makeText(context, "Carga vista", Toast.LENGTH_SHORT).show();
         return vista;
     }
 }
