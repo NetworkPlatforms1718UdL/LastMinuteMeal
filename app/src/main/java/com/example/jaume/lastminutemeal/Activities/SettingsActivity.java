@@ -1,10 +1,11 @@
-package com.example.jaume.lastminutemeal;
+package com.example.jaume.lastminutemeal.Activities;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+import com.example.jaume.lastminutemeal.R;
 
 
 public class SettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {

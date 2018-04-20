@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" 
-    android:layout_height="match_parent" 
-    android:layout_width="match_parent" >
-    
-  <ListView android:layout_height="wrap_content" 
-      android:layout_width="match_parent" 
-      android:id="@+id/LstListado"> 
-  </ListView>
- 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:scrollbars="vertical">
+
+  <Button
+      android:id="@+id/button5"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="40dp"
+      android:layout_marginRight="40dp"
+      android:gravity="center"
+      android:text="Reserva ahora" />
+
+  <ListView
+      android:id="@+id/LstListado"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"></ListView>
+
 </LinearLayout>

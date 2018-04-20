@@ -4,14 +4,20 @@
     android:layout_width="match_parent"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/LocalName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@android:style/TextAppearance.Theme" />
+
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        class="com.example.jaume.lastminutemeal.FragmentGeneralOptions"
+        class="com.example.jaume.lastminutemeal.Fragments.FragmentGeneralOptions"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:id="@+id/FrgGeneral" />
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        class="com.example.jaume.lastminutemeal.FragmentListMenu"
+        class="com.example.jaume.lastminutemeal.Fragments.FragmentListMenu"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/FrgListado" />

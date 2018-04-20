@@ -1,4 +1,4 @@
-package com.example.jaume.lastminutemeal;
+package com.example.jaume.lastminutemeal.Utils;
 
 import android.Manifest;
 import android.app.Activity;
@@ -15,6 +15,9 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.jaume.lastminutemeal.Activities.ElectionMenuActivity;
+import com.example.jaume.lastminutemeal.Adapters.CustomInfoWindowAdapter;
+import com.example.jaume.lastminutemeal.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -55,6 +58,7 @@ public class MapUtils implements OnMapReadyCallback,
     private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
             UPDATE_INTERVAL_IN_MILLISECONDS / 2;
+    public final static String LOCAL_NAME = "LocalTitle";
 
     private FusedLocationProviderClient mFusedLocationClient;
     private SettingsClient mSettingsClient;
@@ -64,14 +68,14 @@ public class MapUtils implements OnMapReadyCallback,
     private Location mCurrentLocation;
 
 
-    static Marker mROMA;
-    static Marker mABAT;
-    static Marker mRAUL;
+    public static Marker mROMA;
+    public static Marker mABAT;
+    public static Marker mRAUL;
     private static Marker mPosition;
 
-    Spinner mEstablish_type_Spinner;
-    Spinner mMeal_type_Spinner;
-    Spinner mRadius_meters_Spinner;
+    public Spinner mEstablish_type_Spinner;
+    public Spinner mMeal_type_Spinner;
+    public Spinner mRadius_meters_Spinner;
 
     private GoogleMap mMap;
 
@@ -83,7 +87,7 @@ public class MapUtils implements OnMapReadyCallback,
 
     private double longitudeGPS, latitudeGPS;
 
-    MapUtils(Context context) {
+    public MapUtils(Context context) {
         this.context = context;
         this.activity = (Activity) context;
     }
@@ -117,7 +121,7 @@ public class MapUtils implements OnMapReadyCallback,
                         updateLocationUI();
                     }
                 })
-                .addOnFailureListener(activity , new OnFailureListener() {
+                .addOnFailureListener(activity, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         int statusCode = ((ApiException) e).getStatusCode();
@@ -232,8 +236,11 @@ public class MapUtils implements OnMapReadyCallback,
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Intent intent = new Intent(context, ElectionMenuActivity.class);
-        context.startActivity(intent);
+        if (!marker.equals(mPosition)) {
+            Intent intent = new Intent(context, ElectionMenuActivity.class);
+            intent.putExtra(LOCAL_NAME,marker.getTitle());
+            context.startActivity(intent);
+        }
     }
 
     @Override
