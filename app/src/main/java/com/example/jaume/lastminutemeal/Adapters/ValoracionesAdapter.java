@@ -46,7 +46,7 @@ public class ValoracionesAdapter extends BaseAdapter {
         TextView name = (TextView) vista.findViewById(R.id.textView5);
         TextView coment = (TextView) vista.findViewById(R.id.textView6);
         name.setText(datos[i][0]);
-        coment.setText(datos[i][1]);
+        coment.setText(datos[i][2]);
         return vista;
     }
 }

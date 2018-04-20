@@ -61,7 +61,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyClf5BI63gZAXRDNErosRHLtJuRLQn00z8" />
 
-        <activity android:name=".Activities.ValorationActivity"></activity>
+        <activity android:name=".Activities.ValorationActivity" />
+        <activity android:name=".Activities.DetailValoration"></activity>
     </application>
 
 </manifest>
