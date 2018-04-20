@@ -2,6 +2,7 @@ package com.example.jaume.lastminutemeal.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,6 +22,8 @@ public class ValorationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_valoration);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.app_name);
 
         listView = (ListView) findViewById(R.id.listValoraciones);
         va = new ValoracionesAdapter(this, datos);
