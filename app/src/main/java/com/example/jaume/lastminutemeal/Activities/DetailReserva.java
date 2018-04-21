@@ -3,10 +3,18 @@ package com.example.jaume.lastminutemeal.Activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jaume.lastminutemeal.R;
 import com.example.jaume.lastminutemeal.Utils.Reserva;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class DetailReserva extends AppCompatActivity {
 
@@ -38,6 +46,25 @@ public class DetailReserva extends AppCompatActivity {
             line.append("\n");
         }
         tv2.setText(line);
+
+
+        Button button = (Button) findViewById(R.id.valorar);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                /*String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                mDatabase = FirebaseDatabase.getInstance().getReference();
+                String key = mDatabase.child("booking").push().getKey();
+                reserva = new Reserva(key,lugar,hora,uid,menuArrayList);
+                Map<String,Object> postValues = reserva.uploadToDataBase();
+                Map<String,Object> childUpdates = new HashMap<>();
+                childUpdates.put("/booking/"+key, postValues);
+                mDatabase.updateChildren(childUpdates);
+                Toast.makeText(getActivity(), "RESERVA REALIZADA", Toast.LENGTH_SHORT).show();
+                getActivity().finish();*/
+            }
+        });
 
 
     }
