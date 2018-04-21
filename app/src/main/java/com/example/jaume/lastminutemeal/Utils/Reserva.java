@@ -44,7 +44,7 @@ public class Reserva {
     public Map<String, Object> uploadToDataBase() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("id", id);
-        result.put("restaurant_id", "1");
+        result.put("restaurant_id", lugar);
         result.put("userid", uid);
         result.put("time", hora);
         result.put("persons", menu.size());
