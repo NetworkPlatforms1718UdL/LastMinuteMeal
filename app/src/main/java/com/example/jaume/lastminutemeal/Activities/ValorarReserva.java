@@ -38,7 +38,7 @@ public class ValorarReserva extends AppCompatActivity {
         toolbar.setTitle("Resumen reserva");
 
         TextView tv = (TextView) findViewById(R.id.title_val);
-        rb = (RatingBar) findViewById(R.id.ratingBar);
+        rb = (RatingBar) findViewById(R.id.ratingBar2);
         et = (EditText) findViewById(R.id.editTextVal);
 
         tv.setText(getIntent().getStringExtra(BAR));
