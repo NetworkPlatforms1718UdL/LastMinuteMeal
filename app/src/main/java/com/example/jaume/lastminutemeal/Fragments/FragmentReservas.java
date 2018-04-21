@@ -1,14 +1,20 @@
 package com.example.jaume.lastminutemeal.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.jaume.lastminutemeal.Activities.DetailReserva;
+import com.example.jaume.lastminutemeal.Activities.DetailValoration;
 import com.example.jaume.lastminutemeal.Adapters.ReservasAdapter;
 import com.example.jaume.lastminutemeal.R;
 import com.example.jaume.lastminutemeal.Utils.Menu;
@@ -33,6 +39,8 @@ public class FragmentReservas extends Fragment implements ValueEventListener {
     public ReservasAdapter reservaAdapter;
     ArrayList<Reserva> resList;
 
+    private static String RESERVA = "reserva";
+
     public FragmentReservas() {
         // Required empty public constructor
     }
@@ -41,8 +49,11 @@ public class FragmentReservas extends Fragment implements ValueEventListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_reservas, container, false);
         getFirebaseData();
-        return inflater.inflate(R.layout.fragment_reservas, container, false);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.reserva);
+        return view;
     }
 
     public void getFirebaseData() {
@@ -61,6 +72,15 @@ public class FragmentReservas extends Fragment implements ValueEventListener {
         reservaAdapter = new ReservasAdapter(getContext(), resList);
         list = Objects.requireNonNull(getView()).findViewById(R.id.LstReservas);
         list.setAdapter(reservaAdapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> list, View view, int pos, long id) {
+                Intent intent = new Intent(getActivity(),DetailReserva.class);
+                intent.putExtra(RESERVA,resList.get(pos));
+                startActivity(intent);
+            }
+        });
     }
 
     private ArrayList<Reserva> getReservasList(HashMap<String, Object> reservas) {

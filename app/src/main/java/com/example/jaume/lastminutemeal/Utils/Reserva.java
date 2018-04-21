@@ -1,10 +1,14 @@
 package com.example.jaume.lastminutemeal.Utils;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Reserva {
+public class Reserva implements Parcelable{
 
     private ArrayList<Menu> menu;
     private String lugar, hora, uid, id;
@@ -16,6 +20,26 @@ public class Reserva {
         this.menu = menu;
         this.uid = uid;
     }
+
+    protected Reserva(Parcel in) {
+        menu = in.createTypedArrayList(Menu.CREATOR);
+        lugar = in.readString();
+        hora = in.readString();
+        uid = in.readString();
+        id = in.readString();
+    }
+
+    public static final Creator<Reserva> CREATOR = new Creator<Reserva>() {
+        @Override
+        public Reserva createFromParcel(Parcel in) {
+            return new Reserva(in);
+        }
+
+        @Override
+        public Reserva[] newArray(int size) {
+            return new Reserva[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -54,5 +78,19 @@ public class Reserva {
         }
         result.put("menu", menus);
         return result;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeTypedList(menu);
+        parcel.writeString(lugar);
+        parcel.writeString(hora);
+        parcel.writeString(uid);
+        parcel.writeString(id);
     }
 }
