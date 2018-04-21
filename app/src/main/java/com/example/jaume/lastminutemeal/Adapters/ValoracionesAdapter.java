@@ -50,13 +50,8 @@ public class ValoracionesAdapter extends BaseAdapter {
         final View vista = inflater.inflate(R.layout.activity_valoracion_list, null);
         TextView name = (TextView) vista.findViewById(R.id.textView5);
         RatingBar coment = (RatingBar) vista.findViewById(R.id.ratingBar);
-        coment.setRating((float) 0.0);
-        coment.setStepSize((float) 0.5);
-        coment.setMax(5);
-
         name.setText(valList.get(i).getRestaurant_id());
         coment.setRating(Float.parseFloat(valList.get(i).getRating()));
-        //coment.setRating(Float.parseFloat(datos[i][2]));
         return vista;
     }
 }

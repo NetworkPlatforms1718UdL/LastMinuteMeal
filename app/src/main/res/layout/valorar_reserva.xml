@@ -25,6 +25,7 @@
         android:id="@+id/title_val"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:textAlignment="center"
         android:textSize="30sp" />
@@ -33,29 +34,35 @@
         android:id="@+id/addVal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Realizar valoracion" />
-
+        android:layout_marginTop="20dp"
+        android:text="@string/rval" />
 
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Añadir valoración" />
+        android:text="@string/addVal"
+        android:textSize="18sp" />
 
     <RatingBar
         android:id="@+id/ratingBar2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:numStars="5" />
+        android:layout_gravity="center"
+        android:numStars="5"
+        android:stepSize="0.5" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Añadir comentario" />
+        android:textSize="18sp"
+        android:text="@string/addComment" />
 
     <EditText
         android:id="@+id/editTextVal"

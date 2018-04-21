@@ -54,6 +54,9 @@
 
     <!-- Valoración -->
     <string name="comment">Comentario</string>
+    <string name="rval">Realizar valoracion</string>
+    <string name="addVal">Añadir valoración</string>
+    <string name="addComment">Añadir comentario</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

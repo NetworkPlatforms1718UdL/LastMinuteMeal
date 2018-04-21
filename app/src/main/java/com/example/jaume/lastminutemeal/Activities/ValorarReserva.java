@@ -26,6 +26,8 @@ public class ValorarReserva extends AppCompatActivity {
     private static String BAR = "bar";
     private DatabaseReference mDatabase;
     private Valoration valoration;
+    RatingBar rb;
+    EditText et;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +38,8 @@ public class ValorarReserva extends AppCompatActivity {
         toolbar.setTitle("Resumen reserva");
 
         TextView tv = (TextView) findViewById(R.id.title_val);
-        final RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
-        final EditText et = (EditText) findViewById(R.id.editTextVal);
+        rb = (RatingBar) findViewById(R.id.ratingBar);
+        et = (EditText) findViewById(R.id.editTextVal);
 
         tv.setText(getIntent().getStringExtra(BAR));
 
@@ -49,7 +51,7 @@ public class ValorarReserva extends AppCompatActivity {
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 String key = mDatabase.child("valoration").push().getKey();
-                valoration = new Valoration(key,getIntent().getStringExtra(BAR),"3.0",et.getText().toString(),uid);
+                valoration = new Valoration(key,getIntent().getStringExtra(BAR),String.valueOf(rb.getRating()),String.valueOf(et.getText()),uid);
                 Map<String,Object> postValues = valoration.uploadToDatabase();
                 Map<String,Object> childUpdates = new HashMap<>();
                 childUpdates.put("/valorations/"+key, postValues);

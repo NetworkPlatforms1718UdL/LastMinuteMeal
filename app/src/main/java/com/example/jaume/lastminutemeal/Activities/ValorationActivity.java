@@ -35,10 +35,6 @@ public class ValorationActivity extends AppCompatActivity implements ValueEventL
 
     ListView listView;
     private ValoracionesAdapter va;
-    String[][] datos = {
-            {"Bar Roma", "Bravas perfectas, recomendable 100%, un bar autentico perfecto para tapear entre horass, sin duda excelente", "4"},
-            {"Bar2", "Encontre una cucaracha", "3"}
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +42,6 @@ public class ValorationActivity extends AppCompatActivity implements ValueEventL
         setContentView(R.layout.activity_valoration);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.valoraciones);
-
         getFirebaseData();
     }
 
@@ -63,9 +58,6 @@ public class ValorationActivity extends AppCompatActivity implements ValueEventL
         HashMap<String, Object> valorations =
                 (HashMap<String, Object>) dataSnapshot.getValue();
         valList = getValorationList(valorations);
-        //va = new ReservasAdapter(getContext(), resList);
-        //list = Objects.requireNonNull(getView()).findViewById(R.id.LstReservas);
-        //list.setAdapter(reservaAdapter);
 
         listView = (ListView) findViewById(R.id.listValoraciones);
         va = new ValoracionesAdapter(this, valList);
