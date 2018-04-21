@@ -49,7 +49,7 @@ public class ReservasAdapter extends BaseAdapter {
         TextView people = vista.findViewById(R.id.bookPeople);
         name.setText(data.get(i).getLugar());
         time.setText(data.get(i).getHora());
-        id.setText(data.get(i).getUid());
+        id.setText(data.get(i).getId());
         people.setText(String.valueOf(data.get(i).getPersonas()));
         return vista;
     }
