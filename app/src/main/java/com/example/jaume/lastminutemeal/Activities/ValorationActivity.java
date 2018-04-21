@@ -20,8 +20,8 @@ public class ValorationActivity extends AppCompatActivity {
     ListView listView;
     private ValoracionesAdapter va;
     String[][] datos = {
-            {"Bar Roma", "Bravas perfectas, recomendable 100%, un bar autentico perfecto para tapear entre horass, sin duda excelente", "5/5"},
-            {"Bar2", "Encontre una cucaracha", "3/5"}
+            {"Bar Roma", "Bravas perfectas, recomendable 100%, un bar autentico perfecto para tapear entre horass, sin duda excelente", "4"},
+            {"Bar2", "Encontre una cucaracha", "3"}
     };
 
     @Override
@@ -29,7 +29,7 @@ public class ValorationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_valoration);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.reserva);
+        toolbar.setTitle(R.string.valoraciones);
 
         listView = (ListView) findViewById(R.id.listValoraciones);
         va = new ValoracionesAdapter(this, datos);

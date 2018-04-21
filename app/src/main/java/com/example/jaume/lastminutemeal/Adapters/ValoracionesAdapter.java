@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,9 +45,13 @@ public class ValoracionesAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         final View vista = inflater.inflate(R.layout.activity_valoracion_list, null);
         TextView name = (TextView) vista.findViewById(R.id.textView5);
-        TextView coment = (TextView) vista.findViewById(R.id.textView6);
+        RatingBar coment = (RatingBar) vista.findViewById(R.id.ratingBar);
+        coment.setRating((float) 0.0);
+        coment.setStepSize((float) 0.5);
+        coment.setMax(5);
+        coment.setRating(Float.parseFloat("2.0"));
         name.setText(datos[i][0]);
-        coment.setText(datos[i][2]);
+        //coment.setRating(Float.parseFloat(datos[i][2]));
         return vista;
     }
 }
