@@ -42,16 +42,26 @@ import com.google.android.gms.location.SettingsClient;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import static android.content.ContentValues.TAG;
 
 public class MapUtils implements OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener,
-        GoogleMap.OnInfoWindowClickListener, AdapterView.OnItemSelectedListener {
+        GoogleMap.OnInfoWindowClickListener,
+        AdapterView.OnItemSelectedListener,
+        ValueEventListener {
 
-    private static final LatLng ROMA = new LatLng(41.614320, 0.619235);
-    private static final LatLng ABAT = new LatLng(41.612101, 0.620149);
-    private static final LatLng RAUL = new LatLng(41.612409, 0.619099);
+    //private static final LatLng ROMA = new LatLng(41.614320, 0.619235);
+    //private static final LatLng ABAT = new LatLng(41.612101, 0.620149);
+    //private static final LatLng RAUL = new LatLng(41.612409, 0.619099);
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
     private static final int REQUEST_CHECK_SETTINGS = 0x1;
@@ -68,10 +78,10 @@ public class MapUtils implements OnMapReadyCallback,
     private Location mCurrentLocation;
 
 
-    public static Marker mROMA;
-    public static Marker mABAT;
-    public static Marker mRAUL;
-    private static Marker mPosition;
+    //public static Marker mROMA;
+    //public static Marker mABAT;
+    //public static Marker mRAUL;
+    public static Marker mPosition;
 
     public Spinner mEstablish_type_Spinner;
     public Spinner mMeal_type_Spinner;
@@ -212,7 +222,11 @@ public class MapUtils implements OnMapReadyCallback,
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(ACTUAL));
         mPosition = mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(latitudeGPS,longitudeGPS)));
-        mROMA = mMap.addMarker(new MarkerOptions()
+
+        Query mQuery = FirebaseDatabase.getInstance().getReference("restaurant");
+        mQuery.addListenerForSingleValueEvent(this);
+
+        /*mROMA = mMap.addMarker(new MarkerOptions()
                 .position(ROMA)
                 .title("Bar Roma")
                 .snippet("Les millors tapes")
@@ -231,7 +245,7 @@ public class MapUtils implements OnMapReadyCallback,
                 .title("Cafeteria Raul")
                 .snippet("El millor cafe")
                 .icon(BitmapDescriptorFactory.defaultMarker(
-                        BitmapDescriptorFactory.HUE_MAGENTA)));
+                        BitmapDescriptorFactory.HUE_MAGENTA))); */
     }
 
     @Override
@@ -264,6 +278,32 @@ public class MapUtils implements OnMapReadyCallback,
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        ArrayList<Object> markers =
+                (ArrayList<Object>) dataSnapshot.getValue();
+        for (int x = 1; x < markers.size(); x++){
+            HashMap<String, Object> temporal = (HashMap<String, Object>) markers.get(x);
+            String id = (String) temporal.get("id");
+            String food = (String) temporal.get("food");
+            String latitude = (String) temporal.get("latitude");
+            String longitude = (String) temporal.get("longitude");
+            String name = (String) temporal.get("name");
+
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(Double.valueOf(latitude),Double.valueOf(longitude)))
+                    .title(name)
+                    .snippet(food)
+                    .icon(BitmapDescriptorFactory.defaultMarker(
+                            BitmapDescriptorFactory.HUE_AZURE)));
+        }
+    }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
 
     }
 }

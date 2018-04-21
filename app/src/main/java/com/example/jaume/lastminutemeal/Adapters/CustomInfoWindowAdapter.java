@@ -47,16 +47,10 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
     private void render(Marker marker, View view) {
         int badge;
-        // Use the equals() method on a Marker to check for equals.  Do not use ==.
-        if (marker.equals(MapUtils.mROMA)) {
-            badge = R.drawable.badge_qld;
-        } else if (marker.equals(MapUtils.mABAT)) {
-            badge = R.drawable.badge_sa;
-        } else if (marker.equals(MapUtils.mRAUL)) {
-            badge = R.drawable.badge_nsw;
-        } else {
-            // Passing 0 to setImageResource will clear the image view.
+        if (marker.equals(MapUtils.mPosition)) {
             badge = 0;
+        } else {
+            badge = R.drawable.badge_nsw;
         }
         ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
 
