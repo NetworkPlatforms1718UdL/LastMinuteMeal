@@ -10,8 +10,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jaume.lastminutemeal.R;
+import com.example.jaume.lastminutemeal.Utils.Valoration;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class ValoracionesAdapter extends BaseAdapter {
 
@@ -19,16 +22,17 @@ public class ValoracionesAdapter extends BaseAdapter {
 
     Context context;
     String[][] datos;
+    ArrayList<Valoration> valList;
 
-    public ValoracionesAdapter (Context context, String[][] datos){
+    public ValoracionesAdapter (Context context, ArrayList<Valoration> valList){
         this.context = context;
-        this.datos = datos;
+        this.valList = valList;
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return datos.length;
+        return valList.size();
     }
 
     @Override
@@ -49,8 +53,9 @@ public class ValoracionesAdapter extends BaseAdapter {
         coment.setRating((float) 0.0);
         coment.setStepSize((float) 0.5);
         coment.setMax(5);
-        coment.setRating(Float.parseFloat("2.0"));
-        name.setText(datos[i][0]);
+
+        name.setText(valList.get(i).getRestaurant_id());
+        coment.setRating(Float.parseFloat(valList.get(i).getRating()));
         //coment.setRating(Float.parseFloat(datos[i][2]));
         return vista;
     }

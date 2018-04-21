@@ -50,7 +50,7 @@ public class ValorarReserva extends AppCompatActivity {
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 String key = mDatabase.child("valoration").push().getKey();
                 valoration = new Valoration(key,getIntent().getStringExtra(BAR),"3.0",et.getText().toString(),uid);
-                Map<String,String> postValues = valoration.uploadToDatabase();
+                Map<String,Object> postValues = valoration.uploadToDatabase();
                 Map<String,Object> childUpdates = new HashMap<>();
                 childUpdates.put("/valorations/"+key, postValues);
                 mDatabase.updateChildren(childUpdates);

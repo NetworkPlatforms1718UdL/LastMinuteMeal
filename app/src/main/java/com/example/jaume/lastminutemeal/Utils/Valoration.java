@@ -59,8 +59,8 @@ public class Valoration {
         this.id = id;
     }
 
-    public Map<String,String> uploadToDatabase(){
-        HashMap<String, String> result = new HashMap<>();
+    public Map<String,Object> uploadToDatabase(){
+        HashMap<String, Object> result = new HashMap<>();
         result.put("id", id);
         result.put("restaurant_id", restaurant_id);
         result.put("userid", userId);
