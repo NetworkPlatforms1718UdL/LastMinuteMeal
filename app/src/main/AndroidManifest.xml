@@ -63,7 +63,8 @@
 
         <activity android:name=".Activities.ValorationActivity" />
         <activity android:name=".Activities.DetailValoration" />
-        <activity android:name=".Activities.DetailReserva"></activity>
+        <activity android:name=".Activities.DetailReserva" />
+        <activity android:name=".Activities.ValorarReserva"></activity>
     </application>
 
 </manifest>

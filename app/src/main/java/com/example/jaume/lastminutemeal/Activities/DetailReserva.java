@@ -1,5 +1,6 @@
 package com.example.jaume.lastminutemeal.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 public class DetailReserva extends AppCompatActivity {
 
+    private static String BAR = "bar";
     private static String RESERVA = "reserva";
 
     @Override
@@ -29,7 +31,7 @@ public class DetailReserva extends AppCompatActivity {
         toolbar.setTitle("Resumen reserva");
         TextView tv = (TextView) findViewById(R.id.title);
         TextView tv2 = (TextView) findViewById(R.id.resumen_reserva);
-        Reserva reserva = (Reserva) getIntent().getParcelableExtra(RESERVA);
+        final Reserva reserva = (Reserva) getIntent().getParcelableExtra(RESERVA);
         tv.setText(reserva.getLugar());
         StringBuilder line = new StringBuilder();
         line.append("Hora: "+reserva.getHora()+"\n");
@@ -53,16 +55,9 @@ public class DetailReserva extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                /*String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                mDatabase = FirebaseDatabase.getInstance().getReference();
-                String key = mDatabase.child("booking").push().getKey();
-                reserva = new Reserva(key,lugar,hora,uid,menuArrayList);
-                Map<String,Object> postValues = reserva.uploadToDataBase();
-                Map<String,Object> childUpdates = new HashMap<>();
-                childUpdates.put("/booking/"+key, postValues);
-                mDatabase.updateChildren(childUpdates);
-                Toast.makeText(getActivity(), "RESERVA REALIZADA", Toast.LENGTH_SHORT).show();
-                getActivity().finish();*/
+                Intent intent = new Intent(getApplicationContext(),ValorarReserva.class);
+                intent.putExtra(BAR,reserva.getLugar());
+                startActivity(intent);
             }
         });
 
