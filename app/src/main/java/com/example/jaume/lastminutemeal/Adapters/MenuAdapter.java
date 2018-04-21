@@ -31,7 +31,7 @@ public class MenuAdapter extends ArrayAdapter<Menu> {
         View item = inflater.inflate(R.layout.listitem_menu, null);
 
         TextView lblPerson = (TextView)item.findViewById(R.id.LblPerson);
-        lblPerson.setText(String.format("Menu %s", String.valueOf(data.get(position).getPerson())));
+        lblPerson.setText(String.format("Menú %s", String.valueOf(data.get(position).getPerson())));
 
         TextView lblfd = (TextView)item.findViewById(R.id.Lblfd);
         lblfd.setText(data.get(position).getFirstDish());
@@ -42,11 +42,11 @@ public class MenuAdapter extends ArrayAdapter<Menu> {
         TextView lbld = (TextView)item.findViewById(R.id.Lbld);
         lbld.setText(data.get(position).getDesert());
 
-        //TextView lbldr = (TextView)item.findViewById(R.id.Lbldr);
-        //lbldr.setText(data.get(position).getDrink());
+        TextView lbldr = (TextView)item.findViewById(R.id.Lbldr);
+        lbldr.setText(data.get(position).getDrink());
 
-        //TextView lblc = (TextView)item.findViewById(R.id.Lblc);
-        //lblc.setText("YES");
+        TextView lblc = (TextView)item.findViewById(R.id.Lblc);
+        lblc.setText(data.get(position).getCoffee());
 
         return(item);
     }

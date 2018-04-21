@@ -21,7 +21,7 @@ public class Menu implements Parcelable{
         secondDish = null;
         drink = null;
         desert = null;
-        coffee = "false";
+        coffee = null;
     }
 
     private Menu(Parcel in) {
@@ -86,7 +86,7 @@ public class Menu implements Parcelable{
         this.secondDish = secondDish;
     }
 
-    void setDrink(String drink) {
+    public void setDrink(String drink) {
         this.drink = drink;
     }
 
@@ -94,7 +94,7 @@ public class Menu implements Parcelable{
         this.desert = desert;
     }
 
-    void setCoffee(String coffee) {
+    public void setCoffee(String coffee) {
         this.coffee = coffee;
     }
 

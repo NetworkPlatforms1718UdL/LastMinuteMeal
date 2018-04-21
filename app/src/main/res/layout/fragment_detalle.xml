@@ -21,7 +21,7 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Primer plato"
+			android:text="@string/first"
 			android:textSize="18sp" />
 
 		<Spinner
@@ -38,7 +38,7 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Segundo plato"
+			android:text="@string/second"
 			android:textSize="18sp" />
 
 		<Spinner
@@ -55,7 +55,7 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Postre"
+			android:text="@string/desert"
 			android:textSize="18sp" />
 
 		<Spinner
@@ -64,11 +64,45 @@
 			android:layout_height="wrap_content" />
 	</LinearLayout>
 
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/drink"
+			android:textSize="18sp" />
+
+		<Spinner
+			android:id="@+id/drink"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/coffe"
+			android:textSize="18sp" />
+
+		<Spinner
+			android:id="@+id/coffe"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+	</LinearLayout>
+
 	<Button
 		android:id="@+id/button3"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:text="Accept"
+		android:text="@string/accept"
 		android:textSize="18sp" />
 
 </LinearLayout>

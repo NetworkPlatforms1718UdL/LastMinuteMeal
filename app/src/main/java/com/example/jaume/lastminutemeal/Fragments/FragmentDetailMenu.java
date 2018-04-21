@@ -32,6 +32,14 @@ public class FragmentDetailMenu extends Fragment {
             "Helado", "Crepe", "Tarta de queso",
     };
     Spinner desert;
+    private static final String[] DRINK = {
+            "Agua", "Refresco", "Cerveza","Vino",
+    };
+    Spinner drink;
+    private static final String[] COFFE = {
+            "No", "Café con leche", "Cortado", "Café largo"
+    };
+    Spinner coffe;
 
     private Menu menu;
     private ArrayList<Menu> menuArrayList;
@@ -53,6 +61,8 @@ public class FragmentDetailMenu extends Fragment {
                 menu.setFirstDish(fDish.getSelectedItem().toString());
                 menu.setSecondDish(sDish.getSelectedItem().toString());
                 menu.setDesert(desert.getSelectedItem().toString());
+                menu.setDrink(drink.getSelectedItem().toString());
+                menu.setCoffee(coffe.getSelectedItem().toString());
                 menuArrayList.set(position,menu);
                 Intent intent = new Intent(getActivity(), ElectionMenuActivity.class);
                 intent.putExtra(DetailMenuActivity.EXTRA_TEXT, menuArrayList);
@@ -91,11 +101,17 @@ public class FragmentDetailMenu extends Fragment {
         fDish = (Spinner) getActivity().findViewById(R.id.firstDish);
         sDish = (Spinner) getActivity().findViewById(R.id.seconDish);
         desert = (Spinner) getActivity().findViewById(R.id.desertt);
+        drink = (Spinner) getActivity().findViewById(R.id.drink);
+        coffe = (Spinner) getActivity().findViewById(R.id.coffe);
         fDish.setAdapter(new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, FDISH));
         sDish.setAdapter(new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_expandable_list_item_1, SDISH));
         desert.setAdapter(new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_expandable_list_item_1, DESERT));
+        drink.setAdapter(new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_expandable_list_item_1, DRINK));
+        coffe.setAdapter(new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_expandable_list_item_1, COFFE));
     }
 }
