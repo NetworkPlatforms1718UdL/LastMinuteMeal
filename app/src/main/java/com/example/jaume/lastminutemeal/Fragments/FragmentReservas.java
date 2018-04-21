@@ -1,7 +1,6 @@
 package com.example.jaume.lastminutemeal.Fragments;
 
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -69,6 +68,7 @@ public class FragmentReservas extends Fragment implements ValueEventListener {
         ArrayList<Reserva> reservasList = new ArrayList<>();
         for (int x = 0; x < reservas.size(); x++) {
             HashMap<String, Object> temporal = (HashMap<String, Object>) reservas.get(keys[x]);
+            String id = (String) temporal.get("id");
             String time = (String) temporal.get("time");
             String restaurant_id = (String) temporal.get("restaurant_id");
             String userid = (String) temporal.get("userid");
@@ -77,7 +77,7 @@ public class FragmentReservas extends Fragment implements ValueEventListener {
             for (int y = 0; y < menus.size(); y++) {
                 menuArrayList.add(new Menu(menus.get(y)));
             }
-            reservasList.add(new Reserva(String.valueOf(restaurant_id), time, userid, menuArrayList));
+            reservasList.add(new Reserva(id, String.valueOf(restaurant_id), time, userid, menuArrayList));
         }
         return reservasList;
     }

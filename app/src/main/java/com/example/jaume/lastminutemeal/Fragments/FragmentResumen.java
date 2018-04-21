@@ -57,9 +57,9 @@ public class FragmentResumen extends Fragment {
             public void onClick(View v)
             {
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                reserva = new Reserva(lugar,hora,uid,menuArrayList);
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 String key = mDatabase.child("booking").push().getKey();
+                reserva = new Reserva(key,lugar,hora,uid,menuArrayList);
                 Map<String,Object> postValues = reserva.uploadToDataBase();
                 Map<String,Object> childUpdates = new HashMap<>();
                 childUpdates.put("/booking/"+key, postValues);

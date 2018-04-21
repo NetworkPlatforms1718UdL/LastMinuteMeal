@@ -43,10 +43,10 @@ public class ReservasAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         final View vista = inflater.inflate(R.layout.activity_reserva_list, null);
-        TextView name = (TextView) vista.findViewById(R.id.bookRestaurantName);
-        TextView time = (TextView) vista.findViewById(R.id.bookTime);
-        TextView id = (TextView) vista.findViewById(R.id.bookId);
-        TextView people = (TextView) vista.findViewById(R.id.bookPeople);
+        TextView name = vista.findViewById(R.id.bookRestaurantName);
+        TextView time = vista.findViewById(R.id.bookTime);
+        TextView id = vista.findViewById(R.id.bookId);
+        TextView people = vista.findViewById(R.id.bookPeople);
         name.setText(data.get(i).getLugar());
         time.setText(data.get(i).getHora());
         id.setText(data.get(i).getUid());
