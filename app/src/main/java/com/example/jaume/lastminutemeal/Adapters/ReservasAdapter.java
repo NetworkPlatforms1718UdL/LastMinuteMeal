@@ -50,7 +50,7 @@ public class ReservasAdapter extends BaseAdapter {
         name.setText(data.get(i).getLugar());
         time.setText(data.get(i).getHora());
         id.setText(data.get(i).getUid());
-        people.setText(data.get(i).getPersonas());
+        people.setText(String.valueOf(data.get(i).getPersonas()));
         return vista;
     }
 }

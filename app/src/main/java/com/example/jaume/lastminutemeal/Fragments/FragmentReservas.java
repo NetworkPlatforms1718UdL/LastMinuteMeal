@@ -1,6 +1,7 @@
 package com.example.jaume.lastminutemeal.Fragments;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -22,15 +23,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentReservas extends Fragment {
+public class FragmentReservas extends Fragment implements ValueEventListener {
 
     public ListView list;
-    public ReservasAdapter rs;
+    public ReservasAdapter reservaAdapter;
+    ArrayList<Reserva> resList;
 
     public FragmentReservas() {
         // Required empty public constructor
@@ -40,63 +42,50 @@ public class FragmentReservas extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        ArrayList<Reserva> reservaList = getFirebaseData();
-        View view = inflater.inflate(R.layout.fragment_reservas, container, false);
-        rs = new ReservasAdapter(getContext(),reservaList);
-        list = (ListView)getView().findViewById(R.id.LstReservas);
-        list.setAdapter(rs);
-        return view;
+        getFirebaseData();
+        return inflater.inflate(R.layout.fragment_reservas, container, false);
     }
 
-    public ArrayList<Reserva> getFirebaseData() {
+    public void getFirebaseData() {
         Query mQuery = FirebaseDatabase.getInstance()
                 .getReference("booking")
                 .orderByChild("userid")
                 .equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-        EventListener eventListener = new EventListener();
-        mQuery.addListenerForSingleValueEvent(eventListener);
-        while (true) {
-            if (eventListener.resList != null) return eventListener.resList;
-        }
+        mQuery.addListenerForSingleValueEvent(this);
     }
 
-    public class EventListener implements ValueEventListener {
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        HashMap<String, Object> reservas =
+                (HashMap<String, Object>) dataSnapshot.getValue();
+        resList = getReservasList(reservas);
+        reservaAdapter = new ReservasAdapter(getContext(), resList);
+        list = Objects.requireNonNull(getView()).findViewById(R.id.LstReservas);
+        list.setAdapter(reservaAdapter);
+    }
 
-        ArrayList<Reserva> resList;
-
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            HashMap<String, Object> reservas =
-                    (HashMap<String, Object>) dataSnapshot.getValue();
-            resList = getReservasList(reservas);
-
-        }
-
-        private ArrayList<Reserva> getReservasList(HashMap<String, Object> reservas) {
-            Object[] keys = reservas.keySet().toArray();
-            ArrayList<Reserva> reservasList = new ArrayList<>();
-            for (int x = 0; x < reservas.size(); x++) {
-                HashMap<String, Object> temporal = (HashMap<String, Object>) reservas.get(keys[x]);
-                String time = (String) temporal.get("time");
-                String restaurant_id = (String) temporal.get("restaurant_id");
-                String userid = (String) temporal.get("userid");
-                ArrayList<HashMap<String,Object>> menus = (ArrayList<HashMap<String,Object>>) temporal.get("menu");
-                ArrayList<Menu> menuArrayList = new ArrayList<>();
-                for (int y = 0; y < menus.size(); y++) {
-                    menuArrayList.add(new Menu(menus.get(y)));
-                }
-                reservasList.add(new Reserva(String.valueOf(restaurant_id), time, userid, menuArrayList));
+    private ArrayList<Reserva> getReservasList(HashMap<String, Object> reservas) {
+        Object[] keys = reservas.keySet().toArray();
+        ArrayList<Reserva> reservasList = new ArrayList<>();
+        for (int x = 0; x < reservas.size(); x++) {
+            HashMap<String, Object> temporal = (HashMap<String, Object>) reservas.get(keys[x]);
+            String time = (String) temporal.get("time");
+            String restaurant_id = (String) temporal.get("restaurant_id");
+            String userid = (String) temporal.get("userid");
+            ArrayList<HashMap<String, Object>> menus = (ArrayList<HashMap<String, Object>>) temporal.get("menu");
+            ArrayList<Menu> menuArrayList = new ArrayList<>();
+            for (int y = 0; y < menus.size(); y++) {
+                menuArrayList.add(new Menu(menus.get(y)));
             }
-            return reservasList;
+            reservasList.add(new Reserva(String.valueOf(restaurant_id), time, userid, menuArrayList));
         }
+        return reservasList;
+    }
 
 
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            //Toast.makeText(this, "There are errors...", Toast.LENGTH_SHORT).show();
-            Log.d("DatabaseErrors", databaseError.getDetails());
-        }
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+        //Toast.makeText(this, "There are erroreservaAdapter...", Toast.LENGTH_SHORT).show();
+        Log.d("DDBBErroreservaAdapter", databaseError.getDetails());
     }
 }
