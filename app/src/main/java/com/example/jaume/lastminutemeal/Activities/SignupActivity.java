@@ -18,6 +18,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import butterknife.ButterKnife;
 import butterknife.Bind;
@@ -96,7 +99,7 @@ public class SignupActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<AuthResult> task) {
                                                 if (task.isSuccessful()) {
                                                     Log.d(TAG, "createUserWithEmail:success");
-                                                    FirebaseUser user = mAuth.getCurrentUser();
+                                                    registerToken();
                                                     onSignupSuccess();
                                                 } else {
                                                     Log.w(TAG, "createUserWithEmail:failure",
@@ -111,6 +114,15 @@ public class SignupActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 }, 3000);
+    }
+
+    private void registerToken() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        String token = FirebaseInstanceId
+                .getInstance().getToken();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("users").child(user.getUid()).push();
+
     }
 
 

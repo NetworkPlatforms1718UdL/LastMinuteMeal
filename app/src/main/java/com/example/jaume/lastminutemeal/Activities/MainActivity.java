@@ -27,6 +27,7 @@ import com.example.jaume.lastminutemeal.Utils.MapUtils;
 import com.example.jaume.lastminutemeal.R;
 import com.example.jaume.lastminutemeal.Utils.Menu;
 import com.example.jaume.lastminutemeal.Utils.Reserva;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -75,6 +76,9 @@ public class MainActivity extends AppCompatActivity
 
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+        googleApiAvailability.makeGooglePlayServicesAvailable(this);
 
         initActionBar();
         initSpinners();
