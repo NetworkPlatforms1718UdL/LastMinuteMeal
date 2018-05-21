@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="primary">#E43F3F</color>
-  <color name="primary_dark">#E12929</color>
-  <color name="primary_darker">#CC1D1D</color>
-  <color name="accent">#FFFFFF</color>
+  <color name="primary">#ff9800</color>
+  <color name="primary_dark">#ffe0b2</color>
+  <color name="primary_darker">#f57c00</color>
+  <color name="accent">#ff5722</color>
 
-    <color name="iron">#CCCCCC</color>
-  <color name="white">#FFFFFF</color>
+    <color name="iron">#212121</color>
+  <color name="white">#757575</color>
 </resources>

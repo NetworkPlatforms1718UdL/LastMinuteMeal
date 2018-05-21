@@ -35,6 +35,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -82,6 +84,9 @@ public class MainActivity extends AppCompatActivity
 
         initActionBar();
         initSpinners();
+        FirebaseInstanceId firebaseInstanceId = FirebaseInstanceId.getInstance();
+        Log.d("InstanceID",firebaseInstanceId.getToken());
+        FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
     }
 
     @Override
@@ -253,7 +258,9 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_gallery) {
-            Toast.makeText(this, "Not Implemented Yet! Keep Calm!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, FAQsActivity.class);
+            startActivity(intent);
+            //Toast.makeText(this, "Not Implemented Yet! Keep Calm!", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_reserva) {
             Intent intent = new Intent(this, DetailReservasActivity.class);
             startActivity(intent);
@@ -261,7 +268,7 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, ValorationActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
-            Toast.makeText(this, "Not Implemented Yet! Keep Calm!", Toast.LENGTH_SHORT).show();
+            finish();
         }
 
 

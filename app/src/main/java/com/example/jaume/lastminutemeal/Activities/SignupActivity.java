@@ -13,11 +13,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jaume.lastminutemeal.R;
+import com.example.jaume.lastminutemeal.Utils.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -117,12 +119,11 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void registerToken() {
-        FirebaseUser user = mAuth.getCurrentUser();
-        String token = FirebaseInstanceId
-                .getInstance().getToken();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        String token = FirebaseInstanceId.getInstance().getToken();
+        User myUser = new User(_nameText.toString(), user.getEmail(), token);
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("users").child(user.getUid()).push();
-
+        mDatabase.child("users").child(user.getUid()).setValue(myUser);
     }
 
 
