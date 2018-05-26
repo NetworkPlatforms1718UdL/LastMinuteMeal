@@ -1,19 +1,15 @@
 package com.example.jaume.lastminutemeal.Activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.jaume.lastminutemeal.Adapters.ReservasAdapter;
 import com.example.jaume.lastminutemeal.Adapters.ValoracionesAdapter;
 import com.example.jaume.lastminutemeal.R;
-import com.example.jaume.lastminutemeal.Utils.Menu;
-import com.example.jaume.lastminutemeal.Utils.Reserva;
 import com.example.jaume.lastminutemeal.Utils.Valoration;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -26,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class ValorationActivity extends AppCompatActivity implements ValueEventListener{
+public class ValorationActivity extends AppCompatActivity implements ValueEventListener {
 
     private static String BAR = "bar";
     private static String COMMENT = "comment";
@@ -34,13 +30,12 @@ public class ValorationActivity extends AppCompatActivity implements ValueEventL
     ArrayList<Valoration> valList;
 
     ListView listView;
-    private ValoracionesAdapter va;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_valoration);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.valoraciones);
         getFirebaseData();
     }
@@ -49,7 +44,7 @@ public class ValorationActivity extends AppCompatActivity implements ValueEventL
         Query mQuery = FirebaseDatabase.getInstance()
                 .getReference("valorations")
                 .orderByChild("userid")
-                .equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                .equalTo(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
         mQuery.addListenerForSingleValueEvent(this);
     }
 
@@ -57,18 +52,19 @@ public class ValorationActivity extends AppCompatActivity implements ValueEventL
     public void onDataChange(DataSnapshot dataSnapshot) {
         HashMap<String, Object> valorations =
                 (HashMap<String, Object>) dataSnapshot.getValue();
+        assert valorations != null;
         valList = getValorationList(valorations);
 
-        listView = (ListView) findViewById(R.id.listValoraciones);
-        va = new ValoracionesAdapter(this, valList);
+        listView = findViewById(R.id.listValoraciones);
+        ValoracionesAdapter va = new ValoracionesAdapter(this, valList);
         listView.setAdapter(va);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> list, View view, int pos, long id) {
-                Intent intent = new Intent(getApplicationContext(),DetailValoration.class);
-                intent.putExtra(BAR,valList.get(pos).getRestaurant_id());
-                intent.putExtra(COMMENT,valList.get(pos).getComment());
+                Intent intent = new Intent(getApplicationContext(), DetailValoration.class);
+                intent.putExtra(BAR, valList.get(pos).getRestaurant_id());
+                intent.putExtra(COMMENT, valList.get(pos).getComment());
                 startActivity(intent);
             }
         });

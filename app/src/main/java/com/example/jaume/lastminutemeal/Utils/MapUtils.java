@@ -18,18 +18,8 @@ import android.widget.Toast;
 import com.example.jaume.lastminutemeal.Activities.ElectionMenuActivity;
 import com.example.jaume.lastminutemeal.Adapters.CustomInfoWindowAdapter;
 import com.example.jaume.lastminutemeal.R;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -39,7 +29,14 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
-
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -63,30 +60,24 @@ public class MapUtils implements OnMapReadyCallback,
     //private static final LatLng ABAT = new LatLng(41.612101, 0.620149);
     //private static final LatLng RAUL = new LatLng(41.612409, 0.619099);
 
-    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
+    public final static String LOCAL_NAME = "LocalTitle";
     private static final int REQUEST_CHECK_SETTINGS = 0x1;
     private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
             UPDATE_INTERVAL_IN_MILLISECONDS / 2;
-    public final static String LOCAL_NAME = "LocalTitle";
-
+    //public static Marker mROMA;
+    //public static Marker mABAT;
+    //public static Marker mRAUL;
+    public static Marker mPosition;
+    public Spinner mEstablish_type_Spinner;
+    public Spinner mMeal_type_Spinner;
+    public Spinner mRadius_meters_Spinner;
     private FusedLocationProviderClient mFusedLocationClient;
     private SettingsClient mSettingsClient;
     private LocationRequest mLocationRequest;
     private LocationSettingsRequest mLocationSettingsRequest;
     private LocationCallback mLocationCallback;
     private Location mCurrentLocation;
-
-
-    //public static Marker mROMA;
-    //public static Marker mABAT;
-    //public static Marker mRAUL;
-    public static Marker mPosition;
-
-    public Spinner mEstablish_type_Spinner;
-    public Spinner mMeal_type_Spinner;
-    public Spinner mRadius_meters_Spinner;
-
     private GoogleMap mMap;
 
     private Context context;
@@ -124,7 +115,7 @@ public class MapUtils implements OnMapReadyCallback,
                     public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
                         Log.i(TAG, "All location settings are satisfied.");
                         //noinspection MissingPermission
-                        if (activity.checkPermission(Manifest.permission.ACCESS_FINE_LOCATION,0,0) ==
+                        if (activity.checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, 0, 0) ==
                                 PackageManager.PERMISSION_GRANTED)
                             mFusedLocationClient.requestLocationUpdates(mLocationRequest,
                                     mLocationCallback, Looper.myLooper());
@@ -160,7 +151,7 @@ public class MapUtils implements OnMapReadyCallback,
     }
 
     private void updateLocationUI() {
-        Log.d("mCurrentLocation",String.valueOf(mCurrentLocation));
+        Log.d("mCurrentLocation", String.valueOf(mCurrentLocation));
         if (mCurrentLocation != null) {
             Log.d("LongitudeGPS", String.valueOf(mCurrentLocation.getLongitude()));
             longitudeGPS = mCurrentLocation.getLongitude();
@@ -169,7 +160,7 @@ public class MapUtils implements OnMapReadyCallback,
             if (firstTime) {
                 addMarkersToMap();
                 firstTime = false;
-            } else mPosition.setPosition(new LatLng(latitudeGPS,longitudeGPS));
+            } else mPosition.setPosition(new LatLng(latitudeGPS, longitudeGPS));
         }
     }
 
@@ -211,7 +202,7 @@ public class MapUtils implements OnMapReadyCallback,
 
     private void addMarkersToMap() {
         // Uses a colored icon.
-        Log.d("LatitudeActual",String.valueOf(latitudeGPS));
+        Log.d("LatitudeActual", String.valueOf(latitudeGPS));
         Log.d("LongitudeActual", String.valueOf(longitudeGPS));
         CameraPosition ACTUAL = new CameraPosition.Builder().target(
                 new LatLng(latitudeGPS, longitudeGPS))
@@ -221,7 +212,7 @@ public class MapUtils implements OnMapReadyCallback,
                 .build();
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(ACTUAL));
         mPosition = mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(latitudeGPS,longitudeGPS)));
+                .position(new LatLng(latitudeGPS, longitudeGPS)));
 
         Query mQuery = FirebaseDatabase.getInstance().getReference("restaurant");
         mQuery.addListenerForSingleValueEvent(this);
@@ -252,7 +243,7 @@ public class MapUtils implements OnMapReadyCallback,
     public void onInfoWindowClick(Marker marker) {
         if (!marker.equals(mPosition)) {
             Intent intent = new Intent(context, ElectionMenuActivity.class);
-            intent.putExtra(LOCAL_NAME,marker.getTitle());
+            intent.putExtra(LOCAL_NAME, marker.getTitle());
             context.startActivity(intent);
         }
     }
@@ -265,13 +256,13 @@ public class MapUtils implements OnMapReadyCallback,
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (parent.getId() == R.id.establish_type_Spinner) {
-            Log.d("Establecimiento","Establecimiento");
+            Log.d("Establecimiento", "Establecimiento");
             //Toast.makeText(context, "Establecimiento Cambiado", Toast.LENGTH_SHORT).show();
         } else if (parent.getId() == R.id.meal_type_Spinner) {
-            Log.d("Comida","Comida");
+            Log.d("Comida", "Comida");
             //Toast.makeText(context, "Tipo de Comida Cambiado", Toast.LENGTH_SHORT).show();
         } else if (parent.getId() == R.id.radius_meters_Spinner) {
-            Log.d("radios","Radios");
+            Log.d("radios", "Radios");
             //Toast.makeText(context, "Radios", Toast.LENGTH_SHORT).show();
         }
     }
@@ -285,16 +276,17 @@ public class MapUtils implements OnMapReadyCallback,
     public void onDataChange(DataSnapshot dataSnapshot) {
         ArrayList<Object> markers =
                 (ArrayList<Object>) dataSnapshot.getValue();
-        for (int x = 1; x < markers.size(); x++){
+        assert markers != null;
+        for (int x = 1; x < markers.size(); x++) {
             HashMap<String, Object> temporal = (HashMap<String, Object>) markers.get(x);
-            String id = (String) temporal.get("id");
+            //String id = (String) temporal.get("id");
             String food = (String) temporal.get("food");
             String latitude = (String) temporal.get("latitude");
             String longitude = (String) temporal.get("longitude");
             String name = (String) temporal.get("name");
 
             mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(Double.valueOf(latitude),Double.valueOf(longitude)))
+                    .position(new LatLng(Double.valueOf(latitude), Double.valueOf(longitude)))
                     .title(name)
                     .snippet(food)
                     .icon(BitmapDescriptorFactory.defaultMarker(

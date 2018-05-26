@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.jaume.lastminutemeal.Activities.FAQsActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.example.jaume.lastminutemeal.Activities.FAQsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -34,8 +34,8 @@
         tools:ignore="RtlSymmetry" />
 
     <WebView
+        android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/webView"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

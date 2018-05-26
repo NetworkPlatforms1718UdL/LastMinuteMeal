@@ -7,19 +7,19 @@
     <!-- TODO: Remove or change this placeholder text -->
 
     <!-- Main Activity Strings -->
-    <string name="meal_type">Tipo de comida</string>
-    <string name="radius_meters">Distancia</string>
-    <string name="establishment_restaurant">Restaurante</string>
+    <string name="meal_type">Type of food</string>
+    <string name="radius_meters">Distance</string>
+    <string name="establishment_restaurant">Restaurant</string>
     <string name="establishment_bar">Bar</string>
-    <string name="establishment_cafe">Cafeteria</string>
-    <string name="establishment_all">Todos</string>
-    <string name="meal_0">Todos</string>
-    <string name="meal_1">Italiana</string>
-    <string name="meal_2">Latina</string>
-    <string name="meal_3">Tapeo</string>
-    <string name="meal_4">Bocatas</string>
-    <string name="meal_5">Mexicana</string>
-    <string name="establish_type">Establecimientos</string>
+    <string name="establishment_cafe">Cafe</string>
+    <string name="establishment_all">All</string>
+    <string name="meal_0">All</string>
+    <string name="meal_1">Italian</string>
+    <string name="meal_2">Latin</string>
+    <string name="meal_3">Tapas</string>
+    <string name="meal_4">Sandwich</string>
+    <string name="meal_5">Mexican</string>
+    <string name="establish_type">Establishments</string>
     <string name="distance_0">500 m</string>
     <string name="distance_1">1 Km</string>
     <string name="distance_2">2,5 Km</string>
@@ -29,39 +29,61 @@
     <string name="settings">Settings</string>
 
     <!-- Menú -->
-    <string name="reserva">Reservas</string>
-    <string name="valoraciones">Valoraciones</string>
-    <string name="tools">Configuración</string>
-    <string name="session">Sesión</string>
-    <string name="logout">Cerrar sesión</string>
+    <string name="reserva">Booking</string>
+    <string name="valoraciones">Valorations</string>
+    <string name="tools">Configuration</string>
+    <string name="session">Session</string>
+    <string name="logout">Log Out</string>
 
     <!-- Realizar reserva -->
-    <string name="npersons">Número de personas</string>
-    <string name="hour">Hora</string>
-    <string name="confirm_npersons">Confirmar número de comensales</string>
-    <string name="reserva_now">Reservar ahora</string>
-    <string name="menu">Menú</string>
+    <string name="npersons">Number of people</string>
+    <string name="hour">Time</string>
+    <string name="confirm_npersons">Confirm time and number of people</string>
+    <string name="reserva_now">Book now</string>
+    <string name="menu">Menu</string>
 
     <!-- Seleccionar menús -->
-    <string name="first">Primer plato</string>
-    <string name="second">Segundo plato</string>
-    <string name="desert">Postre</string>
-    <string name="drink">Bebida</string>
-    <string name="coffe">Café</string>
-    <string name="accept">Aceptar</string>
-    <string name="accept_res">Realizar reserva</string>
-    <string name="resumen_pedido">Resumen pedido</string>
+    <string name="first">First dish</string>
+    <string name="second">Second dish</string>
+    <string name="desert">Desert</string>
+    <string name="drink">Drink</string>
+    <string name="coffe">Coffe</string>
+    <string name="accept">Accept</string>
+    <string name="accept_res">Make reservation</string>
+    <string name="resumen_pedido">Order summary</string>
 
     <!-- Valoración -->
-    <string name="comment">Comentario</string>
-    <string name="rval">Realizar valoracion</string>
-    <string name="addVal">Añadir valoración</string>
-    <string name="addComment">Añadir comentario</string>
+    <string name="comment">Commentary</string>
+    <string name="rval">Rate it</string>
+    <string name="addVal">Add rate</string>
+    <string name="addComment">Add comments</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="faqs">FAQs</string>
-    <string name="realizar_valoracion">Realizar valoracion</string>
-    <string name="obtener_pase_restaurante">Obtener pase restaurante</string>
+    <string name="realizar_valoracion">Rate it</string>
+    <string name="obtener_pase_restaurante">Obtain the restaurant pass</string>
+    <string name="profile_photo">Profile Photo</string>
+    <string name="restaurant_logo">Restaurant logo</string>
+    <string name="todo">TODO</string>
+    <string name="logo">Logo</string>
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="re_enter_password">Re-enter Password</string>
+    <string name="create_account">Create Account</string>
+    <string name="already_a_member_login">Already a member? Login</string>
+    <string name="booking_id">Booking ID:</string>
+    <string name="time">Time:</string>
+    <string name="number_of_people">Number of people:</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="no_account_yet_create_one">No account yet? Create one</string>
+    <string name="login">Login</string>
+    <string name="bookDone">Book done! Wait restaurant confirmation please!</string>
+    <string name="restaurantPass">Restaurant pass</string>
+    <string name="chooseMenu">Choose your meal</string>
+    <string name="bookings">Booking Details</string>
+    <string name="rateDone">Thanks for rating the book!</string>
 </resources>

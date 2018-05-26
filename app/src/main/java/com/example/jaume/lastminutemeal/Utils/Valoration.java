@@ -11,12 +11,12 @@ public class Valoration {
     private String comment;
     private String userId;
 
-    public Valoration(String id, String restaurant_id, String rating, String comment, String userId){
-        this.id=id;
-        this.restaurant_id=restaurant_id;
-        this.rating=rating;
-        this.comment=comment;
-        this.userId=userId;
+    public Valoration(String id, String restaurant_id, String rating, String comment, String userId) {
+        this.id = id;
+        this.restaurant_id = restaurant_id;
+        this.rating = rating;
+        this.comment = comment;
+        this.userId = userId;
     }
 
     public String getRestaurant_id() {
@@ -59,7 +59,7 @@ public class Valoration {
         this.id = id;
     }
 
-    public Map<String,Object> uploadToDatabase(){
+    public Map<String, Object> uploadToDatabase() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("id", id);
         result.put("restaurant_id", restaurant_id);

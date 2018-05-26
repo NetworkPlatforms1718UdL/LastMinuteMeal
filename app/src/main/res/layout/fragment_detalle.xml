@@ -1,108 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical"
-	android:paddingLeft="20dp"
-	android:paddingRight="20dp"
-	android:paddingTop="5dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="5dp">
 
-	<TextView
-		android:id="@+id/TxtDetalle"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:textSize="35sp" />
+    <TextView
+        android:id="@+id/TxtDetalle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="35sp" />
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/first"
-			android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/first"
+            android:textSize="18sp" />
 
-		<Spinner
-			android:id="@+id/firstDish"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content" />
-	</LinearLayout>
+        <Spinner
+            android:id="@+id/firstDish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/second"
-			android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/second"
+            android:textSize="18sp" />
 
-		<Spinner
-			android:id="@+id/seconDish"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content" />
-	</LinearLayout>
+        <Spinner
+            android:id="@+id/seconDish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/desert"
-			android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/desert"
+            android:textSize="18sp" />
 
-		<Spinner
-			android:id="@+id/desertt"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content" />
-	</LinearLayout>
+        <Spinner
+            android:id="@+id/desertt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/drink"
-			android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/drink"
+            android:textSize="18sp" />
 
-		<Spinner
-			android:id="@+id/drink"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content" />
-	</LinearLayout>
+        <Spinner
+            android:id="@+id/drink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/coffe"
-			android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/coffe"
+            android:textSize="18sp" />
 
-		<Spinner
-			android:id="@+id/coffe"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content" />
-	</LinearLayout>
+        <Spinner
+            android:id="@+id/coffe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-	<Button
-		android:id="@+id/button3"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/accept"
-		android:textSize="18sp" />
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/accept"
+        android:textSize="18sp" />
 
 </LinearLayout>

@@ -3,13 +3,23 @@ package com.example.jaume.lastminutemeal.Utils;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Reserva implements Parcelable{
+public class Reserva implements Parcelable {
 
+    public static final Creator<Reserva> CREATOR = new Creator<Reserva>() {
+        @Override
+        public Reserva createFromParcel(Parcel in) {
+            return new Reserva(in);
+        }
+
+        @Override
+        public Reserva[] newArray(int size) {
+            return new Reserva[size];
+        }
+    };
     private ArrayList<Menu> menu;
     private String lugar, hora, uid, id;
 
@@ -28,18 +38,6 @@ public class Reserva implements Parcelable{
         uid = in.readString();
         id = in.readString();
     }
-
-    public static final Creator<Reserva> CREATOR = new Creator<Reserva>() {
-        @Override
-        public Reserva createFromParcel(Parcel in) {
-            return new Reserva(in);
-        }
-
-        @Override
-        public Reserva[] newArray(int size) {
-            return new Reserva[size];
-        }
-    };
 
     public String getId() {
         return id;

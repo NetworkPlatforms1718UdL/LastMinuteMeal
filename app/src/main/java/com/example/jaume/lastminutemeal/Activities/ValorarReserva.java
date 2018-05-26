@@ -1,8 +1,7 @@
 package com.example.jaume.lastminutemeal.Activities;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jaume.lastminutemeal.R;
-import com.example.jaume.lastminutemeal.Utils.Reserva;
 import com.example.jaume.lastminutemeal.Utils.Valoration;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -20,43 +18,43 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ValorarReserva extends AppCompatActivity {
 
     private static String BAR = "bar";
-    private DatabaseReference mDatabase;
-    private Valoration valoration;
     RatingBar rb;
     EditText et;
+    private DatabaseReference mDatabase;
+    private Valoration valoration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.valorar_reserva);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Resumen reserva");
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.resumen_pedido);
 
-        TextView tv = (TextView) findViewById(R.id.title_val);
-        rb = (RatingBar) findViewById(R.id.ratingBar2);
-        et = (EditText) findViewById(R.id.editTextVal);
+        TextView tv = findViewById(R.id.title_val);
+        rb = findViewById(R.id.ratingBar2);
+        et = findViewById(R.id.editTextVal);
 
         tv.setText(getIntent().getStringExtra(BAR));
 
-        Button button = (Button) findViewById(R.id.addVal);
+        Button button = findViewById(R.id.addVal);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            public void onClick(View v) {
+                String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 String key = mDatabase.child("valoration").push().getKey();
-                valoration = new Valoration(key,getIntent().getStringExtra(BAR),String.valueOf(rb.getRating()),String.valueOf(et.getText()),uid);
-                Map<String,Object> postValues = valoration.uploadToDatabase();
-                Map<String,Object> childUpdates = new HashMap<>();
-                childUpdates.put("/valorations/"+key, postValues);
+                valoration = new Valoration(key, getIntent().getStringExtra(BAR), String.valueOf(rb.getRating()), String.valueOf(et.getText()), uid);
+                Map<String, Object> postValues = valoration.uploadToDatabase();
+                Map<String, Object> childUpdates = new HashMap<>();
+                childUpdates.put("/valorations/" + key, postValues);
                 mDatabase.updateChildren(childUpdates);
-                Toast.makeText(getApplicationContext(), "RESERVA REALIZADA", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.rateDone, Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

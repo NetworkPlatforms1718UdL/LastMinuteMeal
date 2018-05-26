@@ -3,6 +3,7 @@ package com.example.jaume.lastminutemeal.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -11,10 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.jaume.lastminutemeal.Activities.DetailReserva;
-import com.example.jaume.lastminutemeal.Activities.DetailValoration;
 import com.example.jaume.lastminutemeal.Adapters.ReservasAdapter;
 import com.example.jaume.lastminutemeal.R;
 import com.example.jaume.lastminutemeal.Utils.Menu;
@@ -35,11 +34,10 @@ import java.util.Objects;
  */
 public class FragmentReservas extends Fragment implements ValueEventListener {
 
+    private static String RESERVA = "reserva";
     public ListView list;
     public ReservasAdapter reservaAdapter;
     ArrayList<Reserva> resList;
-
-    private static String RESERVA = "reserva";
 
     public FragmentReservas() {
         // Required empty public constructor
@@ -47,11 +45,11 @@ public class FragmentReservas extends Fragment implements ValueEventListener {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_reservas, container, false);
         getFirebaseData();
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.reserva);
         return view;
     }
@@ -60,7 +58,7 @@ public class FragmentReservas extends Fragment implements ValueEventListener {
         Query mQuery = FirebaseDatabase.getInstance()
                 .getReference("booking")
                 .orderByChild("userid")
-                .equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                .equalTo(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
         mQuery.addListenerForSingleValueEvent(this);
     }
 
@@ -68,16 +66,17 @@ public class FragmentReservas extends Fragment implements ValueEventListener {
     public void onDataChange(DataSnapshot dataSnapshot) {
         HashMap<String, Object> reservas =
                 (HashMap<String, Object>) dataSnapshot.getValue();
+        assert reservas != null;
         resList = getReservasList(reservas);
-        reservaAdapter = new ReservasAdapter(getContext(), resList);
+        reservaAdapter = new ReservasAdapter(Objects.requireNonNull(getContext()), resList);
         list = Objects.requireNonNull(getView()).findViewById(R.id.LstReservas);
         list.setAdapter(reservaAdapter);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> list, View view, int pos, long id) {
-                Intent intent = new Intent(getActivity(),DetailReserva.class);
-                intent.putExtra(RESERVA,resList.get(pos));
+                Intent intent = new Intent(getActivity(), DetailReserva.class);
+                intent.putExtra(RESERVA, resList.get(pos));
                 startActivity(intent);
             }
         });

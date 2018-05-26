@@ -7,33 +7,33 @@
         <item
             android:id="@+id/nav_reserva"
             android:icon="@drawable/ic_menu_booking"
-            android:title="Reserva" />
+            android:title="@string/reserva" />
         <item
             android:id="@+id/nav_valoraciones"
             android:icon="@drawable/ic_menu_star"
-            android:title="Valoraciones" />
+            android:title="@string/valoraciones" />
 
     </group>
 
-    <item android:title="Tools">
+    <item android:title="@string/tools">
         <menu>
             <item
                 android:id="@+id/nav_manage"
                 android:icon="@drawable/ic_menu_build"
-                android:title="Tools" />
+                android:title="@string/tools" />
             <item
                 android:id="@+id/nav_gallery"
                 android:icon="@drawable/ic_menu_help"
-                android:title="FAQ's" />
+                android:title="@string/faqs" />
         </menu>
     </item>
 
-    <item android:title="Session">
+    <item android:title="@string/session">
         <menu>
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_menu_exit"
-                android:title="Logout" />
+                android:title="@string/logout" />
         </menu>
     </item>
 

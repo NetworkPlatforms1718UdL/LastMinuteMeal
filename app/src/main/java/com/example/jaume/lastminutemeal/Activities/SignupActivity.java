@@ -24,20 +24,28 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-import butterknife.ButterKnife;
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
 
-    @Bind(R.id.input_name) EditText _nameText;
-    @Bind(R.id.input_address) EditText _addressText;
-    @Bind(R.id.input_email) EditText _emailText;
-    @Bind(R.id.input_mobile) EditText _mobileText;
-    @Bind(R.id.input_password) EditText _passwordText;
-    @Bind(R.id.input_reEnterPassword) EditText _reEnterPasswordText;
-    @Bind(R.id.btn_signup) Button _signupButton;
-    @Bind(R.id.link_login) TextView _loginLink;
+    @Bind(R.id.input_name)
+    EditText _nameText;
+    @Bind(R.id.input_address)
+    EditText _addressText;
+    @Bind(R.id.input_email)
+    EditText _emailText;
+    @Bind(R.id.input_mobile)
+    EditText _mobileText;
+    @Bind(R.id.input_password)
+    EditText _passwordText;
+    @Bind(R.id.input_reEnterPassword)
+    EditText _reEnterPasswordText;
+    @Bind(R.id.btn_signup)
+    Button _signupButton;
+    @Bind(R.id.link_login)
+    TextView _loginLink;
 
     private FirebaseAuth mAuth;
 
@@ -60,7 +68,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Finish the registration screen and return to the Login activity
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
@@ -90,12 +98,8 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-        final String name = _nameText.getText().toString();
-        final String address = _addressText.getText().toString();
         final String email = _emailText.getText().toString();
-        final String mobile = _mobileText.getText().toString();
         final String password = _passwordText.getText().toString();
-        final String reEnterPassword = _reEnterPasswordText.getText().toString();
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -127,14 +131,16 @@ public class SignupActivity extends AppCompatActivity {
     private void registerToken() {
         final FirebaseUser user = mAuth.getCurrentUser();
         String token = FirebaseInstanceId.getInstance().getToken();
-        if(user!=null) {
+        if (user != null) {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(_nameText.getText().toString()).build();
             user.updateProfile(profileUpdates);
         }
+        assert user != null;
         User myUser = new User(_nameText.getText().toString(), user.getEmail());
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").child(user.getUid()).setValue(myUser);
+        assert token != null;
         mDatabase.child("users").child(user.getUid()).child(token).setValue(true);
         mDatabase.child("tokens").child(token).setValue(true);
     }
@@ -147,7 +153,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "The registration failed. Please try it later.", Toast.LENGTH_LONG).show();
 
         _signupButton.setEnabled(true);
     }
@@ -184,7 +190,7 @@ public class SignupActivity extends AppCompatActivity {
             _emailText.setError(null);
         }
 
-        if (mobile.isEmpty() || mobile.length()!=9) {
+        if (mobile.isEmpty() || mobile.length() != 9) {
             _mobileText.setError("Enter Valid Mobile Number");
             valid = false;
         } else {

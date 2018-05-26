@@ -19,10 +19,10 @@ public class ReservasAdapter extends BaseAdapter {
     Context context;
     ArrayList<Reserva> data;
 
-    public ReservasAdapter (Context context, ArrayList<Reserva> reservas){
+    public ReservasAdapter(Context context, ArrayList<Reserva> reservas) {
         this.context = context;
         this.data = reservas;
-        inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override

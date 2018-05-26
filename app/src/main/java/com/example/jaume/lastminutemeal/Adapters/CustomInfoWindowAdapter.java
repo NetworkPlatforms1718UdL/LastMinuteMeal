@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.jaume.lastminutemeal.Utils.MapUtils;
 import com.example.jaume.lastminutemeal.R;
+import com.example.jaume.lastminutemeal.Utils.MapUtils;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 
@@ -55,7 +55,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
 
         String title = marker.getTitle();
-        TextView titleUi = ((TextView) view.findViewById(R.id.title));
+        TextView titleUi = view.findViewById(R.id.title);
         if (title != null) {
             // Spannable string allows us to edit the formatting of the text.
             SpannableString titleText = new SpannableString(title);
@@ -67,7 +67,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         }
 
         String snippet = marker.getSnippet();
-        TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
+        TextView snippetUi = view.findViewById(R.id.snippet);
         if (snippet != null && snippet.length() > 12) {
             SpannableString snippetText = new SpannableString(snippet);
             snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA),

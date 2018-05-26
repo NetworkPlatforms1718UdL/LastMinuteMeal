@@ -49,7 +49,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:ignore="UselessParent">
 
             <TextView
                 android:id="@+id/resumen_reserva"
@@ -57,7 +58,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:gravity="center"
-                android:text="TextView"
                 android:textAlignment="center"
                 android:textSize="18sp" />
 

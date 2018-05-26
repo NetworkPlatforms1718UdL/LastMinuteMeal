@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.jaume.lastminutemeal.Activities.MainActivity"
-    tools:showIn="@layout/app_bar_main"
-    android:orientation="vertical">
+    tools:showIn="@layout/app_bar_main">
 
     <TableRow
         android:layout_width="match_parent"
@@ -16,34 +16,37 @@
         android:padding="5dp">
 
         <TextView
-            android:text="@string/establish_type"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/establish_type" />
+
         <Spinner
             android:id="@+id/establish_type_Spinner"
-            android:spinnerMode="dropdown"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown" />
 
         <TextView
-            android:text="@string/meal_type"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/meal_type" />
+
         <Spinner
             android:id="@+id/meal_type_Spinner"
-            android:spinnerMode="dropdown"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown" />
 
         <TextView
-            android:text="@string/radius_meters"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/radius_meters" />
+
         <Spinner
             android:id="@+id/radius_meters_Spinner"
-            android:spinnerMode="dropdown"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown" />
     </TableRow>
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"

@@ -19,26 +19,23 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jaume.lastminutemeal.BuildConfig;
-import com.example.jaume.lastminutemeal.Utils.MapUtils;
 import com.example.jaume.lastminutemeal.R;
+import com.example.jaume.lastminutemeal.Utils.MapUtils;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private com.example.jaume.lastminutemeal.Utils.MapUtils MapUtils = new MapUtils(this);
+    public static final String TAG = "MainActivity";
     private static final int[] TYPE_OF_ESTABLISHMENT = {
             R.string.establishment_all,
             R.string.establishment_restaurant, // Default
@@ -62,24 +59,18 @@ public class MainActivity extends AppCompatActivity
     };
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
-    public static final String TAG = "MainActivity";
+    private com.example.jaume.lastminutemeal.Utils.MapUtils MapUtils = new MapUtils(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Intent intent = new Intent(this, LoginActivity.class);
-        //startActivity(intent);
-
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
         googleApiAvailability.makeGooglePlayServicesAvailable(this);
 
         initActionBar();
         initSpinners();
-        //FirebaseInstanceId firebaseInstanceId = FirebaseInstanceId.getInstance();
-        //Log.d("InstanceID",firebaseInstanceId.getToken());
-        //FirebaseMessaging.getInstance().subscribeToTopic("android");
     }
 
     @Override
@@ -192,37 +183,37 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initActionBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.app_name);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        TextView txtProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.NavDrawName);
-        txtProfileName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-        TextView txtProfileEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.NavDrawEmail);
-        txtProfileEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        TextView txtProfileName = navigationView.getHeaderView(0).findViewById(R.id.NavDrawName);
+        txtProfileName.setText(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
+        TextView txtProfileEmail = navigationView.getHeaderView(0).findViewById(R.id.NavDrawEmail);
+        txtProfileEmail.setText(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail());
     }
 
     private void initSpinners() {
-        MapUtils.mEstablish_type_Spinner = (Spinner) findViewById(R.id.establish_type_Spinner);
+        MapUtils.mEstablish_type_Spinner = findViewById(R.id.establish_type_Spinner);
         MapUtils.mEstablish_type_Spinner.setAdapter(new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item,
                 getResourceStrings(TYPE_OF_ESTABLISHMENT)));
 
-        MapUtils.mMeal_type_Spinner = (Spinner) findViewById(R.id.meal_type_Spinner);
+        MapUtils.mMeal_type_Spinner = findViewById(R.id.meal_type_Spinner);
         MapUtils.mMeal_type_Spinner.setAdapter(new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item,
                 getResourceStrings(TYPE_OF_MEAL)));
 
-        MapUtils.mRadius_meters_Spinner = (Spinner) findViewById(R.id.radius_meters_Spinner);
+        MapUtils.mRadius_meters_Spinner = findViewById(R.id.radius_meters_Spinner);
         MapUtils.mRadius_meters_Spinner.setAdapter(new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item,
                 getResourceStrings(RADIUS_METERS)));
@@ -238,7 +229,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -248,7 +239,7 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -270,7 +261,7 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
