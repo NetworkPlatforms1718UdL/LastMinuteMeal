@@ -4,24 +4,14 @@ public class User {
 
     private String name;
     private String email;
-    private String token;
 
-    public User(String name, String email, String token) {
+    public User(String name, String email) {
         this.name = name;
         this.email = email;
-        this.token = token;
-    }
-
-    public String getToken() {
-        return token;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
     public String getEmail() {

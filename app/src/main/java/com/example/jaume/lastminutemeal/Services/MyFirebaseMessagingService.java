@@ -1,4 +1,4 @@
-package com.example.jaume.lastminutemeal.Utils.Services;
+package com.example.jaume.lastminutemeal.Services;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;

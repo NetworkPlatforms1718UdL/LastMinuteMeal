@@ -61,6 +61,16 @@ public class DetailReserva extends AppCompatActivity {
             }
         });
 
+        Button bidi = (Button) findViewById(R.id.bidi);
+        bidi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CardActivity.class);
+                intent.putExtra("ID",reserva.getId());
+                startActivity(intent);
+            }
+        });
+
 
     }
 }

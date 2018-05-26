@@ -29,12 +29,17 @@
         android:textAlignment="center"
         android:textSize="30sp" />
 
+    <Button
+        android:id="@+id/bidi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/obtener_pase_restaurante" />
 
     <Button
         android:id="@+id/valorar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Realizar valoracion" />
+        android:text="@string/realizar_valoracion" />
 
     <LinearLayout
         android:layout_width="match_parent"

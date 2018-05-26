@@ -19,28 +19,21 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jaume.lastminutemeal.BuildConfig;
 import com.example.jaume.lastminutemeal.Utils.MapUtils;
 import com.example.jaume.lastminutemeal.R;
-import com.example.jaume.lastminutemeal.Utils.Menu;
-import com.example.jaume.lastminutemeal.Utils.Reserva;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -76,17 +69,17 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, LoginActivity.class);
+        //startActivity(intent);
 
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
         googleApiAvailability.makeGooglePlayServicesAvailable(this);
 
         initActionBar();
         initSpinners();
-        FirebaseInstanceId firebaseInstanceId = FirebaseInstanceId.getInstance();
-        Log.d("InstanceID",firebaseInstanceId.getToken());
-        FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
+        //FirebaseInstanceId firebaseInstanceId = FirebaseInstanceId.getInstance();
+        //Log.d("InstanceID",firebaseInstanceId.getToken());
+        //FirebaseMessaging.getInstance().subscribeToTopic("android");
     }
 
     @Override
@@ -211,6 +204,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        TextView txtProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.NavDrawName);
+        txtProfileName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        TextView txtProfileEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.NavDrawEmail);
+        txtProfileEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
     }
 
     private void initSpinners() {

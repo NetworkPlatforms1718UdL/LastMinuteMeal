@@ -13,6 +13,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcheround"
         android:label="@string/app_name"
         android:theme="@style/AppTheme.Dark">
         <activity
@@ -20,16 +21,17 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.Dark"
             tools:ignore="InnerclassSeparator">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.LoginActivity"
             android:theme="@style/AppTheme.Dark"
-            tools:ignore="InnerclassSeparator" />
+            tools:ignore="InnerclassSeparator">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".Activities.SignupActivity"
             android:theme="@style/AppTheme.Dark" />
@@ -61,12 +63,12 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyClf5BI63gZAXRDNErosRHLtJuRLQn00z8" />
 
-        <service android:name=".Utils.Services.MyFirebaseInstanceIDService">
+        <service android:name=".Services.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".Utils.Services.MyFirebaseMessagingService">
+        <service android:name=".Services.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -76,7 +78,8 @@
         <activity android:name=".Activities.DetailValoration" />
         <activity android:name=".Activities.DetailReserva" />
         <activity android:name=".Activities.ValorarReserva" />
-        <activity android:name=".Activities.FAQsActivity"></activity>
+        <activity android:name=".Activities.FAQsActivity" />
+        <activity android:name=".Activities.CardActivity"></activity>
     </application>
 
 </manifest>

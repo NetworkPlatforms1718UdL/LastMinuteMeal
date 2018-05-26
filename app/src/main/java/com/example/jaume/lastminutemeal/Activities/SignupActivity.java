@@ -68,6 +68,12 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        // Disable going back to the
+        moveTaskToBack(true);
+    }
+
     public void signup() {
         Log.d(TAG, "Signup");
 
@@ -121,9 +127,16 @@ public class SignupActivity extends AppCompatActivity {
     private void registerToken() {
         final FirebaseUser user = mAuth.getCurrentUser();
         String token = FirebaseInstanceId.getInstance().getToken();
-        User myUser = new User(_nameText.toString(), user.getEmail(), token);
+        if(user!=null) {
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(_nameText.getText().toString()).build();
+            user.updateProfile(profileUpdates);
+        }
+        User myUser = new User(_nameText.getText().toString(), user.getEmail());
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").child(user.getUid()).setValue(myUser);
+        mDatabase.child("users").child(user.getUid()).child(token).setValue(true);
+        mDatabase.child("tokens").child(token).setValue(true);
     }
 
 

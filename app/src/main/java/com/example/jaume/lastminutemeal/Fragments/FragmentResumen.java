@@ -64,6 +64,7 @@ public class FragmentResumen extends Fragment {
                 Map<String,Object> childUpdates = new HashMap<>();
                 childUpdates.put("/booking/"+key, postValues);
                 mDatabase.updateChildren(childUpdates);
+                mDatabase.child("confirmation").child(uid).setValue(true);
                 Toast.makeText(getActivity(), "RESERVA REALIZADA", Toast.LENGTH_SHORT).show();
                 getActivity().finish();
             }
