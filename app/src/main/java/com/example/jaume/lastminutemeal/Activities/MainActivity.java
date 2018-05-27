@@ -138,6 +138,9 @@ public class MainActivity extends AppCompatActivity
             } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission granted.
                 Toast.makeText(this, "PERMISSION GRANTED", Toast.LENGTH_LONG).show();
+                SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.map);
+                mapFragment.getMapAsync(MapUtils);
             } else {
 
                 Toast.makeText(this, "PERMISSION NOT GRANTED", Toast.LENGTH_LONG).show();
