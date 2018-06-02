@@ -1,10 +1,16 @@
 package com.example.jaume.lastminutemeal.Activities;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -58,6 +64,12 @@ public class MainActivity extends AppCompatActivity
             R.string.distance_4,
     };
 
+    public static final String WIFI = "Wi-Fi";
+    public static final String ANY = "Any";
+    public static String sPref = null;
+    private static boolean wifiConnected = false;
+    private static boolean mobileConnected = false;
+
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
     private com.example.jaume.lastminutemeal.Utils.MapUtils MapUtils = new MapUtils(this);
 
@@ -76,6 +88,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPrefs.registerOnSharedPreferenceChangeListener(new SettingsActivity());
+        sPref = sharedPrefs.getString("listPref", "Wi-Fi");
+        updateConnectedFlags();
 
         if (!checkPermissions()) {
             requestPermissions();
@@ -83,6 +99,23 @@ public class MainActivity extends AppCompatActivity
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(MapUtils);
+        }
+    }
+
+    private void updateConnectedFlags() {
+        ConnectivityManager connMgr =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = null;
+        if (connMgr != null) {
+            networkInfo = connMgr.getActiveNetworkInfo();
+        }
+        if (networkInfo != null && networkInfo.isConnected()) {
+            wifiConnected = networkInfo.getType() == ConnectivityManager.TYPE_WIFI;
+            mobileConnected = networkInfo.getType() == ConnectivityManager.TYPE_MOBILE;
+        } else {
+            wifiConnected = false;
+            mobileConnected = false;
         }
     }
 
@@ -267,6 +300,41 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public class NetworkReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = null;
+            if (connMgr != null) {
+                networkInfo = connMgr.getActiveNetworkInfo();
+            }
+
+            // Checks the user prefs and the network connection. Based on the result, decides
+            // whether
+            // to refresh the display or keep the current display.
+            // If the userpref is Wi-Fi only, checks to see if the device has a Wi-Fi connection.
+            if (WIFI.equals(sPref) && networkInfo != null
+                    && networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                // If device has its Wi-Fi connection, sets refreshDisplay
+                // to true. This causes the display to be refreshed when the user
+                // returns to the app.
+                Toast.makeText(context, R.string.wifi_connected, Toast.LENGTH_SHORT).show();
+
+                // If the setting is ANY network and there is a network connection
+                // (which by process of elimination would be mobile), sets refreshDisplay to true.
+            } else if (ANY.equals(sPref) && networkInfo != null) {
+                Toast.makeText(context, R.string.network_connected, Toast.LENGTH_SHORT).show();
+                // Otherwise, the app can't download content--either because there is no network
+                // connection (mobile or Wi-Fi), or because the pref setting is WIFI, and there
+                // is no Wi-Fi connection.
+                // Sets refreshDisplay to false.
+            } else {
+                Toast.makeText(context, R.string.lost_connection, Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 }

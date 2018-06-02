@@ -86,4 +86,7 @@
     <string name="chooseMenu">Choose your meal</string>
     <string name="bookings">Booking Details</string>
     <string name="rateDone">Thanks for rating the book!</string>
+    <string name="wifi_connected">Wi-Fi Connection</string>
+    <string name="network_connected">Mobile Network Connection</string>
+    <string name="lost_connection">Lost Location</string>
 </resources>
