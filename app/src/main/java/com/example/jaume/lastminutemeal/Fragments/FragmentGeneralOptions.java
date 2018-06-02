@@ -1,6 +1,5 @@
 package com.example.jaume.lastminutemeal.Fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.jaume.lastminutemeal.Activities.ElectionMenuActivity;
@@ -19,7 +17,7 @@ import com.example.jaume.lastminutemeal.R;
 import java.util.Objects;
 
 
-public class FragmentGeneralOptions extends Fragment implements AdapterView.OnItemSelectedListener{
+public class FragmentGeneralOptions extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private static final String[] NUMBER_PERSONS = {
             "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
@@ -67,8 +65,8 @@ public class FragmentGeneralOptions extends Fragment implements AdapterView.OnIt
         pers = mNumberPersons.getSelectedItem().toString();
         hor = mHours.getSelectedItem().toString();
         lugar = ema.LocalName;
-        Log.d("FragmentGeneralOptLocal",ema.LocalName);
-        Log.d("FragmentGeneralOptHour",hor);
+        Log.d("FragmentGeneralOptLocal", ema.LocalName);
+        Log.d("FragmentGeneralOptHour", hor);
         fragmentListMenu.setClients(Integer.parseInt(pers), hor, lugar);
     }
 

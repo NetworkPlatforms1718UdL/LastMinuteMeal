@@ -89,7 +89,7 @@ public class ValorationActivity extends AppCompatActivity implements ValueEventL
                 valorationsList.add(new Valoration(id, String.valueOf(restaurant_id), rating, comment, userid));
             }
             return valorationsList;
-        } catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, "You have not valorate any restaurant yet. Please, do it before!", Toast.LENGTH_SHORT).show();
             return new ArrayList<Valoration>();
         }

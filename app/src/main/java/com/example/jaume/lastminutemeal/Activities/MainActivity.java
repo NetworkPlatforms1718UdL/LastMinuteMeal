@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String TAG = "MainActivity";
+    public static final String WIFI = "Wi-Fi";
+    public static final String ANY = "Any";
     private static final int[] TYPE_OF_ESTABLISHMENT = {
             R.string.establishment_all,
             R.string.establishment_restaurant, // Default
@@ -63,14 +65,10 @@ public class MainActivity extends AppCompatActivity
             R.string.distance_3,
             R.string.distance_4,
     };
-
-    public static final String WIFI = "Wi-Fi";
-    public static final String ANY = "Any";
+    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
     public static String sPref = null;
     private static boolean wifiConnected = false;
     private static boolean mobileConnected = false;
-
-    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
     private com.example.jaume.lastminutemeal.Utils.MapUtils MapUtils = new MapUtils(this);
 
     @Override
