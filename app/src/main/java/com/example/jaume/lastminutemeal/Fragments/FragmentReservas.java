@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.jaume.lastminutemeal.Activities.DetailReserva;
 import com.example.jaume.lastminutemeal.Adapters.ReservasAdapter;
@@ -67,7 +68,11 @@ public class FragmentReservas extends Fragment implements ValueEventListener {
         HashMap<String, Object> reservas =
                 (HashMap<String, Object>) dataSnapshot.getValue();
         assert reservas != null;
-        resList = getReservasList(reservas);
+        try {
+            resList = getReservasList(reservas);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         reservaAdapter = new ReservasAdapter(Objects.requireNonNull(getContext()), resList);
         list = Objects.requireNonNull(getView()).findViewById(R.id.LstReservas);
         list.setAdapter(reservaAdapter);
@@ -82,23 +87,28 @@ public class FragmentReservas extends Fragment implements ValueEventListener {
         });
     }
 
-    private ArrayList<Reserva> getReservasList(HashMap<String, Object> reservas) {
-        Object[] keys = reservas.keySet().toArray();
-        ArrayList<Reserva> reservasList = new ArrayList<>();
-        for (int x = 0; x < reservas.size(); x++) {
-            HashMap<String, Object> temporal = (HashMap<String, Object>) reservas.get(keys[x]);
-            String id = (String) temporal.get("id");
-            String time = (String) temporal.get("time");
-            String restaurant_id = (String) temporal.get("restaurant_id");
-            String userid = (String) temporal.get("userid");
-            ArrayList<HashMap<String, Object>> menus = (ArrayList<HashMap<String, Object>>) temporal.get("menu");
-            ArrayList<Menu> menuArrayList = new ArrayList<>();
-            for (int y = 0; y < menus.size(); y++) {
-                menuArrayList.add(new Menu(menus.get(y)));
+    private ArrayList<Reserva> getReservasList(HashMap<String, Object> reservas) throws Exception {
+        try {
+            Object[] keys = reservas.keySet().toArray();
+            ArrayList<Reserva> reservasList = new ArrayList<>();
+            for (int x = 0; x < reservas.size(); x++) {
+                HashMap<String, Object> temporal = (HashMap<String, Object>) reservas.get(keys[x]);
+                String id = (String) temporal.get("id");
+                String time = (String) temporal.get("time");
+                String restaurant_id = (String) temporal.get("restaurant_id");
+                String userid = (String) temporal.get("userid");
+                ArrayList<HashMap<String, Object>> menus = (ArrayList<HashMap<String, Object>>) temporal.get("menu");
+                ArrayList<Menu> menuArrayList = new ArrayList<>();
+                for (int y = 0; y < menus.size(); y++) {
+                    menuArrayList.add(new Menu(menus.get(y)));
+                }
+                reservasList.add(new Reserva(id, String.valueOf(restaurant_id), time, userid, menuArrayList));
             }
-            reservasList.add(new Reserva(id, String.valueOf(restaurant_id), time, userid, menuArrayList));
+            return reservasList;
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "There are no bookings yet. Please, book in a restaurant before!", Toast.LENGTH_SHORT).show();
+            return new ArrayList<Reserva>();
         }
-        return reservasList;
     }
 
 

@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.jaume.lastminutemeal.Adapters.ValoracionesAdapter;
 import com.example.jaume.lastminutemeal.R;
@@ -53,7 +54,11 @@ public class ValorationActivity extends AppCompatActivity implements ValueEventL
         HashMap<String, Object> valorations =
                 (HashMap<String, Object>) dataSnapshot.getValue();
         assert valorations != null;
-        valList = getValorationList(valorations);
+        try {
+            valList = getValorationList(valorations);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         listView = findViewById(R.id.listValoraciones);
         ValoracionesAdapter va = new ValoracionesAdapter(this, valList);
@@ -70,19 +75,24 @@ public class ValorationActivity extends AppCompatActivity implements ValueEventL
         });
     }
 
-    private ArrayList<Valoration> getValorationList(HashMap<String, Object> valorations) {
-        Object[] keys = valorations.keySet().toArray();
-        ArrayList<Valoration> valorationsList = new ArrayList<>();
-        for (int x = 0; x < valorations.size(); x++) {
-            HashMap<String, Object> temporal = (HashMap<String, Object>) valorations.get(keys[x]);
-            String id = (String) temporal.get("id");
-            String restaurant_id = (String) temporal.get("restaurant_id");
-            String rating = (String) temporal.get("rating");
-            String comment = (String) temporal.get("comment");
-            String userid = (String) temporal.get("userid");
-            valorationsList.add(new Valoration(id, String.valueOf(restaurant_id), rating, comment, userid));
+    private ArrayList<Valoration> getValorationList(HashMap<String, Object> valorations) throws Exception {
+        try {
+            Object[] keys = valorations.keySet().toArray();
+            ArrayList<Valoration> valorationsList = new ArrayList<>();
+            for (int x = 0; x < valorations.size(); x++) {
+                HashMap<String, Object> temporal = (HashMap<String, Object>) valorations.get(keys[x]);
+                String id = (String) temporal.get("id");
+                String restaurant_id = (String) temporal.get("restaurant_id");
+                String rating = (String) temporal.get("rating");
+                String comment = (String) temporal.get("comment");
+                String userid = (String) temporal.get("userid");
+                valorationsList.add(new Valoration(id, String.valueOf(restaurant_id), rating, comment, userid));
+            }
+            return valorationsList;
+        } catch (Exception e){
+            Toast.makeText(this, "You have not valorate any restaurant yet. Please, do it before!", Toast.LENGTH_SHORT).show();
+            return new ArrayList<Valoration>();
         }
-        return valorationsList;
     }
 
     @Override

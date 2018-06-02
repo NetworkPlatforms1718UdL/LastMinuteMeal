@@ -25,8 +25,6 @@ public class DetailResumenActivity extends FragmentActivity {
         toolbar.setTitle(R.string.resumen_pedido);
         FragmentResumen resumen = (FragmentResumen) getSupportFragmentManager().
                 findFragmentById(R.id.FrgResumen);
-        Log.d("DetResActHora",getIntent().getStringExtra(HORA));
-        Log.d("DetResActLugar",getIntent().getStringExtra(LUGAR));
         resumen.mostrarResumen((ArrayList<Menu>) getIntent().getSerializableExtra(EXTRA_TEXT),
                 getIntent().getStringExtra(HORA), getIntent().getStringExtra(LUGAR));
     }

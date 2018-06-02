@@ -73,8 +73,6 @@ public class FragmentResumen extends Fragment {
         this.menuArrayList = menuArrayList;
         this.hora = hora;
         this.lugar = lugar;
-        Log.d("FragmentResumenHora",hora);
-        Log.d("FragmentResumenLugar",lugar);
         StringBuilder line = new StringBuilder();
         tv2.setText("Where: " + lugar + "\n" + "When: " + hora);
         for (int x = 1; x <= menuArrayList.size(); x++) {

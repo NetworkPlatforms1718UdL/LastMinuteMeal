@@ -1,7 +1,5 @@
 package com.example.jaume.lastminutemeal.Fragments;
 
-//import android.app.ListFragment;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -47,8 +45,6 @@ public class FragmentListMenu extends Fragment {
                 i.putExtra(DetailResumenActivity.EXTRA_TEXT, data);
                 i.putExtra(DetailResumenActivity.HORA, hora);
                 i.putExtra(DetailResumenActivity.LUGAR, lugar);
-                Log.d("FragmentListMenuHora",hora);
-                Log.d("FragmentListMenuLugar",lugar);
                 startActivityForResult(i, 1234);
             }
         });
